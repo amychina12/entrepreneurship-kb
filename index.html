@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KS7NJXM80"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6KS7NJXM80');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrepreneurship Research Knowledge Base</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face { font-family: 'OpenDyslexic'; font-style: normal; font-weight: 400; src: url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Regular.woff2') format('woff2'), url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Regular.woff') format('woff'); }
+@font-face { font-family: 'OpenDyslexic'; font-style: normal; font-weight: 700; src: url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Bold.woff2') format('woff2'), url('https://cdn.jsdelivr.net/gh/antijingoist/opendyslexic@master/compiled/OpenDyslexic-Bold.woff') format('woff'); }
+</style>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; background: #fff; color: #292929; line-height: 1.6; font-size: 16px; }
+  ::selection { background: #1A8917; color: white; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #fff; }
+  ::-webkit-scrollbar-thumb { background: #E5E5E5; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C0C0C0; }
+  button, input, select, textarea { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+
+  /* Header */
+  .header { background: white; border-bottom: 1px solid #E5E5E5; padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+  .header h1 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 22px; font-weight: 600; color: #292929; letter-spacing: -0.3px; }
+  .header-right { display: flex; align-items: center; gap: 24px; }
+  .journal-counts { display: flex; gap: 16px; font-size: 13px; color: #6B6B6B; }
+  .journal-counts span { display: flex; align-items: center; gap: 5px; }
+  .jdot { width: 8px; height: 8px; border-radius: 50%; }
+  .jdot-etp { background: #4A90E2; }
+  .jdot-jbv { background: #1A8917; }
+  .jdot-sej { background: #D4A13A; }
+
+  .vtoggle { display: flex; background: transparent; border-radius: 0; padding: 0; border-bottom: 1px solid #E5E5E5; }
+  .vbtn { padding: 10px 20px; font-size: 14px; font-weight: 500; border: none; background: none; cursor: pointer; border-radius: 0; color: #6B6B6B; transition: all 0.15s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .vbtn:hover { color: #292929; }
+  .vbtn.on { background: none; color: #292929; box-shadow: none; border-bottom-color: #1A8917; }
+  .vbtn .bcount { font-size: 9px; background: #E55B5B; color: white; border-radius: 7px; padding: 0 5px; margin-left: 4px; font-weight: 500; }
+
+  /* Search */
+  .search-bar { padding: 24px 60px; background: white; display: flex; align-items: center; gap: 12px; }
+  .search-col { flex: 1; max-width: 720px; }
+  .sinput { width: 100%; padding: 14px 24px; border: 1px solid #E5E5E5; border-radius: 24px; font-size: 15px; outline: none; transition: all 0.15s; color: #292929; background: #F7F7F7; }
+  .sinput:focus { border-color: #1A8917; background: #fff; }
+  .sinput::placeholder { color: #999; }
+  .search-tips { font-size: 12px; color: #999; margin-top: 6px; line-height: 1.5; padding-left: 12px; }
+  .search-tips code { background: #F5F5F5; padding: 2px 6px; border-radius: 3px; font-size: 12px; color: #6B6B6B; font-family: 'Menlo', 'Monaco', monospace; }
+  .kbd-hint { font-size: 12px; color: #999; align-self: flex-start; margin-top: 14px; }
+  .kbd-hint kbd { background: #F5F5F5; border: 1px solid #E5E5E5; border-radius: 3px; padding: 2px 6px; font-size: 11px; color: #6B6B6B; }
+
+  /* Filters */
+  .filters { padding: 12px 60px 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: white; border-bottom: 1px solid #E5E5E5; }
+  .fg { position: relative; }
+  .fb { padding: 6px 14px; border: 1px solid #E5E5E5; border-radius: 20px; background: white; font-size: 13px; cursor: pointer; color: #6B6B6B; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
+  .fb:hover { border-color: #1A8917; color: #1A8917; background: #F8FDF7; }
+  .fb.on { background: #F0F8ED; border-color: #1A8917; color: #1A8917; }
+  .fb .ct { background: #1A8917; color: white; border-radius: 7px; padding: 0 6px; font-size: 10px; font-weight: 500; }
+  .fd { position: absolute; top: calc(100% + 4px); left: 0; background: white; border: 1px solid #E5E5E5; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 40; min-width: 260px; max-height: 340px; overflow-y: auto; padding: 8px; }
+  .fs { width: calc(100% - 10px); margin: 4px 5px 6px; padding: 8px 14px; border: 1px solid #E5E5E5; border-radius: 20px; font-size: 13px; outline: none; }
+  .fs:focus { border-color: #1A8917; }
+  .fo { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 6px; cursor: pointer; font-size: 13px; color: #555; }
+  .fo:hover { background: #F7F7F7; }
+  .fo input { accent-color: #1A8917; width: 15px; height: 15px; margin-top: 2px; flex-shrink: 0; }
+  .fo-wrap { display: flex; flex-direction: column; }
+  .fo-desc { font-size: 11px; color: #999; line-height: 1.4; margin-top: 1px; }
+  .clr { padding: 5px 12px; border: none; background: none; font-size: 13px; cursor: pointer; color: #999; }
+  .clr:hover { color: #e55; }
+  .fsep { width: 1px; height: 20px; background: #E5E5E5; margin: 0 4px; }
+  .yr { display: flex; align-items: center; gap: 5px; }
+  .yi { width: 64px; padding: 6px 8px; border: 1px solid #E5E5E5; border-radius: 6px; font-size: 13px; text-align: center; color: #555; }
+
+  /* Results bar */
+  .rbar { padding: 16px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .rinfo { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; color: #6B6B6B; }
+  .rinfo strong { color: #292929; }
+  .rbar-right { display: flex; align-items: center; gap: 10px; }
+  .ssel { padding: 6px 12px; border: 1px solid #E5E5E5; border-radius: 20px; font-size: 13px; background: white; color: #6B6B6B; cursor: pointer; }
+
+  /* Export buttons */
+  .export-btn { padding: 8px 18px; border: 1px solid #E5E5E5; border-radius: 24px; font-size: 13px; cursor: pointer; background: white; color: #6B6B6B; display: flex; align-items: center; gap: 6px; transition: all 0.15s; font-weight: 500; }
+  .export-btn:hover { border-color: #1A8917; color: #1A8917; background: #F8FDF7; }
+  .export-btn svg { width: 14px; height: 14px; }
+  .export-menu { position: relative; }
+  .export-dd { position: absolute; top: calc(100% + 4px); right: 0; background: white; border: 1px solid #E5E5E5; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); z-index: 40; min-width: 220px; padding: 6px; }
+  .export-opt { display: block; width: 100%; text-align: left; padding: 10px 14px; border: none; background: none; font-size: 13px; cursor: pointer; color: #555; border-radius: 6px; }
+  .export-opt:hover { background: #F8FDF7; color: #1A8917; }
+  .export-opt small { display: block; font-size: 11px; color: #999; margin-top: 2px; }
+
+  /* AI Summarize button */
+  .ai-btn { padding: 8px 20px; border: none; border-radius: 24px; font-size: 13px; cursor: pointer; background: #1A8917; color: white; display: flex; align-items: center; gap: 6px; transition: all 0.15s; font-weight: 500; }
+  .ai-btn:hover { background: #168B0E; }
+  .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ai-btn svg { width: 14px; height: 14px; }
+
+  /* Settings gear */
+  .settings-btn { border: none; background: none; cursor: pointer; color: #ccc; padding: 4px; transition: color 0.15s; font-size: 16px; }
+  .settings-btn:hover { color: #1A8917; }
+  .settings-btn.has-key { color: #1A8917; }
+
+  /* Cards */
+  .papers { padding: 0 60px 60px; }
+  .card { background: white; border: none; border-bottom: 1px solid #E5E5E5; border-radius: 0; margin-bottom: 0; overflow: hidden; transition: background-color 0.15s; }
+  .card:hover { background-color: #FAFAFA; }
+  .card.active-card { background-color: #F8FDF7; border-bottom-color: #1A8917; }
+  .ci { padding: 24px 28px; cursor: pointer; }
+  .ct-row { display: flex; align-items: flex-start; gap: 14px; }
+  .ctitle { flex: 1; font-size: 18px; font-weight: 600; color: #292929; line-height: 1.4; letter-spacing: -0.1px; }
+  .cj { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; padding: 3px 10px; border-radius: 12px; white-space: nowrap; flex-shrink: 0; }
+  .cj-ETP { background: #E8F2FF; color: #4A90E2; }
+  .cj-JBV { background: #E8F5E0; color: #1A8917; }
+  .cj-SEJ { background: #FEF6E8; color: #B8922E; }
+  .cauth { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; color: #6B6B6B; margin-top: 6px; display: flex; align-items: center; justify-content: space-between; }
+  .csnip { font-size: 15px; color: #6B6B6B; margin-top: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.6; }
+
+  /* Bookmark star */
+  .star-btn { border: none; background: none; cursor: pointer; padding: 2px 4px; font-size: 16px; line-height: 1; transition: all 0.15s; color: #ddd; flex-shrink: 0; }
+  .star-btn:hover { color: #f0c040; transform: scale(1.1); }
+  .star-btn.starred { color: #f0c040; }
+
+  /* ===== EXPANDED DETAILS ===== */
+  .details { padding: 12px 32px 36px; }
+  .d-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #E5E5E5; }
+  .chip { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px 14px; border-radius: 12px; background: #F5F5F5; color: #6B6B6B; }
+  .chip-j { font-weight: 600; }
+  .d-group { margin-bottom: 36px; padding: 24px 28px; border-radius: 0; border-bottom: 1px solid #E5E5E5; }
+  .d-group.g-research { background: transparent; border-left: 3px solid #4A90E2; }
+  .d-group.g-framework { background: transparent; border-left: 3px solid #1A8917; }
+  .d-group.g-variables { background: transparent; border-left: 3px solid #D4A13A; }
+  .d-group.g-notes { background: transparent; border-left: 3px solid #6B5B95; }
+  .d-group.g-related { background: transparent; border-left: 3px solid #E8855A; }
+  .d-group-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 20px; padding-bottom: 8px; }
+  .d-group.g-research .d-group-title { color: #4A90E2; border-bottom: 1px solid #E5E5E5; }
+  .d-group.g-framework .d-group-title { color: #1A8917; border-bottom: 1px solid #E5E5E5; }
+  .d-group.g-variables .d-group-title { color: #C49A2A; border-bottom: 1px solid #E5E5E5; }
+  .d-group.g-notes .d-group-title { color: #6B5B95; border-bottom: 1px solid #E5E5E5; }
+  .d-group.g-related .d-group-title { color: #E8855A; border-bottom: 1px solid #E5E5E5; }
+  .d-item { margin-bottom: 24px; }
+  .d-item:last-child { margin-bottom: 0; }
+  .d-label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 600; color: #999; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .d-text { font-size: 16px; color: #292929; line-height: 1.85; letter-spacing: 0.1px; word-spacing: 0.5px; }
+  .d-text.bionic b { font-weight: 700; color: #191919; }
+  .d-text.dyslexic { font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif; font-size: 15px; line-height: 2.1; letter-spacing: 0.8px; word-spacing: 3px; }
+  .d-text.dyslexic.bionic b { font-weight: 700; }
+  .reading-toggles { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+  .a11y-toggle { display: flex; align-items: center; gap: 7px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; color: #999; cursor: pointer; user-select: none; }
+  .a11y-toggle input { display: none; }
+  .a11y-switch { width: 32px; height: 18px; background: #E5E5E5; border-radius: 9px; position: relative; transition: background 0.2s; flex-shrink: 0; }
+  .a11y-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: white; border-radius: 50%; transition: transform 0.2s; }
+  .a11y-toggle input:checked + .a11y-switch { background: #1A8917; }
+  .a11y-toggle input:checked + .a11y-switch::after { transform: translateX(14px); }
+
+  /* Related papers tabs and items */
+  .rel-tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #E5E5E5; }
+  .rel-tab { padding: 8px 14px; border: none; border-bottom: 2px solid transparent; border-radius: 0; background: none; font-size: 12px; cursor: pointer; color: #6B6B6B; transition: all 0.15s; font-weight: 500; margin-bottom: -1px; }
+  .rel-tab:hover { color: #292929; }
+  .rel-tab.on { background: none; border-bottom-color: #E8855A; color: #E8855A; }
+  .rel-paper { padding: 12px 0; border-radius: 0; background: transparent; border: none; border-bottom: 1px solid #E5E5E5; margin-bottom: 0; cursor: default; }
+  .rel-paper:hover { background: transparent; }
+  .rel-title { font-size: 14px; font-weight: 500; color: #292929; line-height: 1.5; }
+  .rel-meta { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 12px; color: #999; margin-top: 4px; }
+  .rel-match { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 11px; color: #E8855A; margin-top: 4px; font-weight: 500; }
+  .rel-none { font-size: 13px; color: #999; padding: 12px 0; }
+
+  /* Pagination */
+  .pgn { display: flex; justify-content: center; gap: 4px; margin-top: 32px; }
+  .pb { padding: 6px 12px; border: 1px solid #E5E5E5; border-radius: 20px; background: white; font-size: 13px; cursor: pointer; color: #6B6B6B; transition: all 0.15s; }
+  .pb:hover { border-color: #1A8917; color: #1A8917; }
+  .pb.on { background: #1A8917; color: white; border-color: #1A8917; }
+  .pb:disabled { opacity: 0.3; cursor: default; }
+
+  /* Analytics */
+  .analytics { padding: 32px 60px 60px; }
+  .srow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+  .sc { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; }
+  .sc-n { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 32px; font-weight: 600; color: #292929; }
+  .sc-l { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; color: #6B6B6B; margin-top: 4px; }
+  .cg { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .cb { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; }
+  .cb.w { grid-column: 1 / -1; }
+  .cl { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #292929; margin-bottom: 14px; }
+  .ca { position: relative; height: 270px; }
+  .ca.t { height: 340px; }
+
+  .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; }
+  .spinner { width: 32px; height: 32px; border: 3px solid #E5E5E5; border-top-color: #1A8917; border-radius: 50%; animation: sp 0.7s linear infinite; }
+  @keyframes sp { to { transform: rotate(360deg); } }
+  .loading p { margin-top: 12px; color: #999; font-size: 14px; }
+  .empty { text-align: center; padding: 60px 20px; color: #999; font-size: 15px; }
+
+  /* Keyboard shortcuts help bar */
+  .shortcuts-help { position: fixed; bottom: 0; left: 0; right: 0; background: #292929; color: #999; font-size: 12px; padding: 8px 60px; display: flex; gap: 20px; z-index: 100; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .shortcuts-help kbd { background: #444; border: 1px solid #555; border-radius: 3px; padding: 1px 6px; font-size: 11px; color: #ddd; margin-right: 3px; }
+  .shortcuts-help span { display: flex; align-items: center; gap: 2px; }
+
+  /* Toast notification */
+  .toast { position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); background: #292929; color: white; padding: 10px 24px; border-radius: 24px; font-size: 14px; z-index: 200; animation: fadeInUp 0.2s ease; pointer-events: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+  /* ===== AI PANEL (Pop-out Modal) ===== */
+  .ai-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 400; display: flex; align-items: center; justify-content: center; animation: aiFadeIn 0.2s ease; backdrop-filter: blur(4px); }
+  @keyframes aiFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes aiSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .ai-panel { background: white; border-radius: 12px; width: 860px; max-width: 92vw; max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.12); animation: aiSlideUp 0.25s ease; overflow: hidden; }
+  .ai-panel-header { padding: 20px 28px; background: white; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .ai-panel-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #292929; display: flex; align-items: center; gap: 8px; }
+  .ai-panel-title svg { width: 18px; height: 18px; }
+  .ai-panel-actions { display: flex; align-items: center; gap: 8px; }
+  .ai-close { border: none; background: none; cursor: pointer; color: #999; font-size: 24px; padding: 4px 8px; border-radius: 6px; transition: all 0.15s; }
+  .ai-close:hover { background: #F5F5F5; color: #292929; }
+  .ai-panel-body { flex: 1; overflow-y: auto; min-height: 0; }
+  .ai-summary-content { padding: 28px 32px; }
+  .ai-summary-content h3 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #292929; margin: 24px 0 12px; }
+  .ai-summary-content h3:first-child { margin-top: 0; }
+  .ai-summary-content h4 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #292929; margin: 18px 0 8px; }
+  .ai-summary-content p { font-size: 15px; color: #292929; line-height: 1.7; margin-bottom: 12px; }
+  .ai-summary-content ul, .ai-summary-content ol { font-size: 15px; color: #292929; line-height: 1.7; margin: 8px 0 12px 24px; }
+  .ai-summary-content li { margin-bottom: 6px; }
+  .ai-summary-content strong { color: #292929; }
+  .ai-summary-content em { color: #6B6B6B; }
+  .ai-loading { padding: 60px 40px; text-align: center; }
+  .ai-loading .spinner { margin: 0 auto; border-top-color: #1A8917; width: 36px; height: 36px; }
+  .ai-loading p { color: #999; font-size: 14px; margin-top: 16px; }
+  .ai-paper-count-badge { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; display: inline-block; background: #E8F5E0; color: #1A8917; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+
+  /* AI Chat */
+  .ai-chat { border-top: 1px solid #E5E5E5; flex-shrink: 0; }
+  .ai-chat-msgs { max-height: 250px; overflow-y: auto; padding: 16px 28px; }
+  .ai-chat-msg { margin-bottom: 12px; }
+  .ai-chat-msg.user { text-align: right; }
+  .ai-chat-msg .msg-bubble { display: inline-block; max-width: 85%; padding: 12px 18px; border-radius: 12px; font-size: 14px; line-height: 1.6; text-align: left; }
+  .ai-chat-msg.user .msg-bubble { background: #E8F5E0; color: #292929; border-bottom-right-radius: 3px; }
+  .ai-chat-msg.assistant .msg-bubble { background: #F7F7F7; color: #292929; border-bottom-left-radius: 3px; }
+  .ai-chat-input-row { display: flex; gap: 8px; padding: 16px 28px; border-top: 1px solid #E5E5E5; background: #FAFAFA; border-radius: 0 0 12px 12px; }
+  .ai-chat-input { flex: 1; padding: 12px 16px; border: 1px solid #E5E5E5; border-radius: 24px; font-size: 14px; outline: none; }
+  .ai-chat-input:focus { border-color: #1A8917; }
+  .ai-chat-send { padding: 10px 22px; border: none; background: #1A8917; color: white; border-radius: 24px; font-size: 13px; cursor: pointer; font-weight: 500; }
+  .ai-chat-send:hover { background: #168B0E; }
+  .ai-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Settings Modal */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; display: flex; align-items: center; justify-content: center; }
+  .modal { background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); width: 480px; max-width: 90vw; }
+  .modal-header { padding: 20px 24px; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; }
+  .modal-header h2 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; color: #292929; }
+  .modal-body { padding: 28px; }
+  .modal-field { margin-bottom: 22px; }
+  .modal-field:last-child { margin-bottom: 0; }
+  .modal-field label { display: block; font-size: 13px; font-weight: 500; color: #292929; margin-bottom: 8px; }
+  .modal-field input, .modal-field select { width: 100%; padding: 10px 14px; border: 1px solid #E5E5E5; border-radius: 8px; font-size: 14px; outline: none; }
+  .modal-field input:focus, .modal-field select:focus { border-color: #1A8917; }
+  .modal-field small { display: block; margin-top: 6px; font-size: 12px; color: #999; }
+  .modal-footer { padding: 16px 24px; border-top: 1px solid #E5E5E5; display: flex; justify-content: flex-end; gap: 10px; background: #FAFAFA; border-radius: 0 0 12px 12px; }
+  .modal-save { padding: 10px 24px; border: none; background: #1A8917; color: white; border-radius: 24px; font-size: 14px; cursor: pointer; font-weight: 500; }
+  .modal-save:hover { background: #168B0E; }
+  .modal-cancel { padding: 10px 24px; border: 1px solid #E5E5E5; background: white; color: #6B6B6B; border-radius: 24px; font-size: 14px; cursor: pointer; }
+
+  /* Help guide modal */
+  .help-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 300; display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 40px 20px; }
+  .help-modal { background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); width: 620px; max-width: 92vw; max-height: 85vh; display: flex; flex-direction: column; }
+  .help-modal .modal-header { padding: 20px 28px; border-bottom: 1px solid #E5E5E5; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .help-modal .modal-header h2 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 600; color: #292929; }
+  .help-content { padding: 28px; overflow-y: auto; flex: 1; }
+  .help-section { margin-bottom: 28px; }
+  .help-section:last-child { margin-bottom: 0; }
+  .help-section h3 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #292929; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .help-section h3 .help-icon { font-size: 18px; }
+  .help-section p, .help-section li { font-size: 14px; color: #555; line-height: 1.65; }
+  .help-section ul { padding-left: 20px; margin-top: 6px; }
+  .help-section li { margin-bottom: 5px; }
+  .help-section code { background: #F5F5F5; padding: 2px 7px; border-radius: 4px; font-size: 13px; color: #292929; font-family: 'Menlo', 'Monaco', monospace; }
+  .help-section kbd { background: #F5F5F5; border: 1px solid #E5E5E5; border-radius: 4px; padding: 2px 7px; font-size: 12px; color: #555; font-family: -apple-system, sans-serif; }
+  .help-dismiss { padding: 10px 28px; border: none; background: #1A8917; color: white; border-radius: 24px; font-size: 14px; cursor: pointer; font-weight: 500; margin-top: 8px; align-self: center; }
+  .help-dismiss:hover { background: #168B0E; }
+  .help-footer { padding: 16px 28px; border-top: 1px solid #E5E5E5; display: flex; justify-content: center; flex-shrink: 0; background: #FAFAFA; border-radius: 0 0 12px 12px; }
+
+  /* Wiki tab */
+  .about-section { max-width: 720px; margin: 60px auto; padding: 0 24px; }
+  .about-section h2 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 28px; font-weight: 600; margin-bottom: 24px; }
+  .about-section p { margin-bottom: 16px; line-height: 1.8; color: #555; font-size: 16px; }
+  .about-section a { color: #1A8917; text-decoration: none; font-weight: 500; }
+  .about-section a:hover { text-decoration: underline; }
+
+  .wiki { padding: 32px 60px 60px; max-width: 900px; margin: 0 auto; font-family: 'Source Serif 4', Georgia, serif; }
+  .wiki h2 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 28px; font-weight: 700; color: #292929; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .wiki .wiki-subtitle { font-size: 15px; color: #6B6B6B; margin-bottom: 36px; line-height: 1.6; }
+  .wiki h3 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 20px; font-weight: 600; color: #292929; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid #E5E5E5; }
+  .wiki h3:first-of-type { margin-top: 0; }
+  .wiki h4 { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #292929; margin: 24px 0 10px; }
+  .wiki p { font-size: 15px; color: #444; line-height: 1.75; margin-bottom: 14px; }
+  .wiki ul, .wiki ol { padding-left: 24px; margin-bottom: 14px; }
+  .wiki li { font-size: 15px; color: #444; line-height: 1.7; margin-bottom: 4px; }
+  .wiki code { background: #F5F5F5; padding: 2px 7px; border-radius: 4px; font-size: 13px; color: #292929; font-family: 'Menlo', 'Monaco', monospace; }
+  .wiki strong { color: #292929; }
+  .wiki-toc { background: #FAFAFA; border: 1px solid #E5E5E5; border-radius: 10px; padding: 20px 28px; margin-bottom: 36px; }
+  .wiki-toc h4 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: #6B6B6B; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wiki-toc ol { padding-left: 20px; margin: 0; }
+  .wiki-toc li { font-size: 14px; margin-bottom: 4px; }
+  .wiki-toc a { color: #1A8917; text-decoration: none; }
+  .wiki-toc a:hover { text-decoration: underline; }
+  .wiki-table { width: 100%; border-collapse: collapse; margin: 14px 0 20px; font-size: 14px; }
+  .wiki-table th { text-align: left; padding: 10px 14px; background: #FAFAFA; border: 1px solid #E5E5E5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: 600; color: #292929; font-size: 13px; }
+  .wiki-table td { padding: 8px 14px; border: 1px solid #E5E5E5; color: #444; vertical-align: top; line-height: 1.5; }
+  .wiki-table tr:hover td { background: #F8FDF7; }
+  .wiki-stat { display: inline-block; background: #F0F8ED; color: #1A8917; font-weight: 600; padding: 2px 8px; border-radius: 10px; font-size: 13px; font-family: -apple-system, sans-serif; }
+  .wiki-pipeline { background: #FAFAFA; border: 1px solid #E5E5E5; border-radius: 10px; padding: 20px 24px; margin: 14px 0 20px; }
+  .wiki-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .wiki-step:last-child { margin-bottom: 0; }
+  .wiki-step-num { background: #1A8917; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; font-family: -apple-system, sans-serif; flex-shrink: 0; margin-top: 1px; }
+  .wiki-step-body { flex: 1; }
+  .wiki-step-title { font-weight: 600; color: #292929; font-size: 14px; font-family: -apple-system, sans-serif; }
+  .wiki-step-desc { font-size: 13px; color: #6B6B6B; margin-top: 2px; line-height: 1.5; }
+  .wiki-flow { display: flex; align-items: center; gap: 12px; margin: 20px 0 28px; flex-wrap: wrap; }
+  .wiki-flow-box { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 12px 18px; text-align: center; font-family: -apple-system, sans-serif; }
+  .wiki-flow-box .wf-label { font-size: 12px; color: #6B6B6B; margin-bottom: 4px; }
+  .wiki-flow-box .wf-value { font-size: 15px; font-weight: 600; color: #292929; }
+  .wiki-flow-arrow { font-size: 20px; color: #ccc; }
+
+  /* BM25 relevance score badge */
+  .relevance-badge { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .relevance-badge .rel-bar { width: 32px; height: 4px; border-radius: 2px; background: #E5E5E5; overflow: hidden; }
+  .relevance-badge .rel-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+
+  /* Analytics sub-tabs */
+  .analytics-tabs { display: flex; gap: 0; margin: 0 60px 20px; background: transparent; border-radius: 0; padding: 0; width: auto; border-bottom: 1px solid #E5E5E5; }
+  .analytics-tab { padding: 12px 20px; border: none; background: transparent; border-radius: 0; font-size: 14px; cursor: pointer; color: #6B6B6B; font-weight: 500; transition: all 0.15s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .analytics-tab.on { background: none; color: #292929; box-shadow: none; border-bottom-color: #1A8917; }
+  .analytics-tab:hover:not(.on) { color: #292929; }
+
+  /* Research Explorer */
+  .explorer-container { margin: 0 60px; }
+  .explorer-subtabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid #E5E5E5; }
+  .explorer-subtab { padding: 10px 20px; border: none; background: none; font-size: 14px; cursor: pointer; color: #6B6B6B; font-weight: 500; transition: all 0.15s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .explorer-subtab.on { color: #292929; border-bottom-color: #1A8917; }
+  .explorer-subtab:hover:not(.on) { color: #292929; }
+
+  /* Heatmap */
+  .heatmap-wrap { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 28px; overflow-x: auto; }
+  .heatmap-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 600; color: #292929; margin-bottom: 4px; }
+  .heatmap-subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; color: #999; margin-bottom: 20px; }
+  .heatmap-table { border-collapse: collapse; font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .heatmap-table th { padding: 8px 12px; font-weight: 600; color: #6B6B6B; white-space: nowrap; text-align: center; border-bottom: 1px solid #E5E5E5; }
+  .heatmap-table th.row-header { text-align: right; max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: #292929; font-weight: 500; }
+  .heatmap-table td { padding: 0; text-align: center; }
+  .heatmap-cell { width: 56px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; cursor: pointer; transition: all 0.15s; border-radius: 4px; margin: 1px; }
+  .heatmap-cell:hover { transform: scale(1.1); z-index: 2; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .heatmap-cell.zero { color: #ccc; background: #F7F7F7 !important; }
+  .heatmap-legend { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 12px; color: #999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .heatmap-legend-bar { width: 140px; height: 12px; border-radius: 6px; background: linear-gradient(to right, #E5E5E5, #1A8917); }
+
+  /* Heatmap tooltip */
+  .heatmap-tooltip { position: fixed; background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 12px 16px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); z-index: 500; pointer-events: none; max-width: 320px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .heatmap-tooltip strong { display: block; font-size: 13px; color: #292929; margin-bottom: 4px; }
+  .heatmap-tooltip .tt-count { font-weight: 600; color: #1A8917; }
+  .heatmap-tooltip .tt-papers { margin-top: 8px; font-size: 11px; color: #6B6B6B; line-height: 1.5; }
+
+  /* Variable Relationship Map */
+  .varmap-container { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 28px; }
+  .varmap-search { display: flex; gap: 10px; margin-bottom: 16px; }
+  .varmap-input { flex: 1; max-width: 520px; padding: 12px 20px; border: 1px solid #E5E5E5; border-radius: 24px; font-size: 14px; outline: none; background: #F7F7F7; }
+  .varmap-input:focus { border-color: #1A8917; background: white; }
+  .varmap-input::placeholder { color: #999; }
+  .varmap-hint { font-size: 13px; color: #999; margin-bottom: 16px; }
+  .varmap-stats { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; color: #6B6B6B; margin-bottom: 14px; padding: 10px 14px; background: #F7F7F7; border-radius: 8px; }
+  .varmap-stats strong { color: #1A8917; }
+
+  .pathway-list { display: flex; flex-direction: column; gap: 0; max-height: 600px; overflow-y: auto; }
+  .pathway-card { background: white; border: none; border-bottom: 1px solid #E5E5E5; border-radius: 0; padding: 16px 0; transition: background-color 0.15s; }
+  .pathway-card:hover { background-color: #FAFAFA; }
+  .pathway-arrow { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: #292929; flex-wrap: wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .pathway-iv { background: #E8F2FF; color: #4A6FA5; padding: 4px 12px; border-radius: 12px; font-size: 13px; }
+  .pathway-dv { background: #FFF0EB; color: #B35A3A; padding: 4px 12px; border-radius: 12px; font-size: 13px; }
+  .pathway-arrow-icon { color: #999; font-size: 16px; }
+  .pathway-count { margin-left: auto; background: #1A8917; color: white; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .pathway-meta { margin-top: 8px; font-size: 13px; color: #6B6B6B; line-height: 1.6; }
+  .pathway-meta span { color: #1A8917; font-weight: 500; }
+  .pathway-papers { margin-top: 10px; padding-top: 10px; border-top: 1px solid #E5E5E5; font-size: 13px; color: #6B6B6B; line-height: 1.6; cursor: pointer; }
+  .pathway-papers-toggle { color: #1A8917; font-weight: 500; cursor: pointer; font-size: 13px; margin-top: 6px; }
+  .pathway-paper-item { padding: 6px 0; border-bottom: 1px solid #F5F5F5; }
+  .pathway-paper-item:last-child { border-bottom: none; }
+
+  /* Research Gap Radar */
+  .gap-container { display: flex; flex-direction: column; gap: 24px; }
+  .gap-heatmaps { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .gap-card { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 28px; overflow-x: auto; }
+  .gap-card-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #292929; margin-bottom: 4px; }
+  .gap-card-subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; color: #999; margin-bottom: 16px; }
+  .gap-cell { width: 52px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #fff; cursor: pointer; transition: all 0.15s; border-radius: 4px; margin: 1px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .gap-cell:hover { transform: scale(1.1); z-index: 2; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .gap-cell.zero { color: #ccc; background: #F7F7F7 !important; }
+  .gap-cell.gap-flag { outline: 2px solid #E8855A; outline-offset: -1px; }
+  .gap-list { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 28px; }
+  .gap-list-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 600; color: #292929; margin-bottom: 14px; }
+  .gap-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F5F5F5; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .gap-item:last-child { border-bottom: none; }
+  .gap-badge { background: #FFF0EB; color: #E8855A; font-weight: 600; font-size: 12px; padding: 3px 10px; border-radius: 12px; white-space: nowrap; }
+  .gap-label { color: #292929; }
+  .gap-legend { display: flex; align-items: center; gap: 12px; font-size: 11px; color: #999; margin-top: 10px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .gap-legend-swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+
+  @media (max-width: 900px) {
+    .gap-heatmaps { grid-template-columns: 1fr; }
+  }
+
+  /* Journal comparison */
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 0 60px; }
+  .comparison-card { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 24px; }
+  .comparison-card .cl { font-size: 14px; font-weight: 600; color: #292929; margin-bottom: 14px; }
+  .comparison-card .ca { height: 280px; }
+  .comparison-card.wide { grid-column: 1 / -1; }
+  .comparison-table { width: 100%; border-collapse: collapse; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  .comparison-table th { text-align: left; padding: 10px 14px; border-bottom: 1px solid #E5E5E5; color: #6B6B6B; font-weight: 600; font-size: 12px; }
+  .comparison-table td { padding: 10px 14px; border-bottom: 1px solid #F5F5F5; color: #292929; }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 0 60px 24px; }
+  .comparison-stat { background: white; border: 1px solid #E5E5E5; border-radius: 8px; padding: 20px; text-align: center; }
+  .comparison-stat .j-name { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: #292929; }
+  .comparison-stat .stat-row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; color: #6B6B6B; }
+  .comparison-stat .stat-val { font-weight: 600; color: #292929; }
+
+  /* AI export button */
+  .ai-export-btn { padding: 8px 18px; border: 1px solid #E5E5E5; border-radius: 24px; font-size: 13px; cursor: pointer; background: white; color: #6B6B6B; transition: all 0.15s; font-weight: 500; }
+  .ai-export-btn:hover { background: #F8FDF7; border-color: #1A8917; color: #1A8917; }
+
+  @media (max-width: 768px) {
+    .header, .search-bar, .filters, .rbar, .papers, .analytics { padding-left: 16px; padding-right: 16px; }
+    .cg, .srow { grid-template-columns: 1fr; }
+    .header { flex-wrap: wrap; gap: 8px; }
+    .shortcuts-help { display: none; }
+    .ai-panel { width: 96vw; max-height: 92vh; border-radius: 12px; }
+    .analytics-tabs, .explorer-container, .comparison-grid, .comparison-summary { margin-left: 16px; margin-right: 16px; }
+    .ctitle { font-size: 16px; }
+    body { font-size: 15px; }
+  }
+
+  /* ===== DARK MODE ===== */
+  /* Dark mode toggle button */
+  .dark-toggle { border: none; background: none; cursor: pointer; font-size: 18px; padding: 4px 6px; transition: all 0.15s; border-radius: 6px; line-height: 1; }
+  .dark-toggle:hover { background: #F5F5F5; }
+  body.dark .dark-toggle:hover { background: #333; }
+
+  body.dark { background: #1a1a1a; color: #E0E0E0; }
+  body.dark ::selection { background: #2E7D32; color: white; }
+  body.dark ::-webkit-scrollbar-track { background: #1a1a1a; }
+  body.dark ::-webkit-scrollbar-thumb { background: #444; }
+  body.dark ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+  /* Header */
+  body.dark .header { background: #1e1e1e; border-bottom-color: #333; }
+  body.dark .header h1 { color: #E0E0E0; }
+  body.dark .journal-counts { color: #999; }
+  body.dark .vbtn { color: #888; }
+  body.dark .vbtn:hover { color: #E0E0E0; }
+  body.dark .vbtn.on { color: #E0E0E0; border-bottom-color: #4CAF50; }
+
+  /* Search */
+  body.dark .search-bar { background: #1e1e1e; }
+  body.dark .sinput { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+  body.dark .sinput:focus { border-color: #4CAF50; background: #2a2a2a; }
+  body.dark .sinput::placeholder { color: #777; }
+  body.dark .search-tips { color: #777; }
+  body.dark .search-tips code { background: #2a2a2a; color: #aaa; }
+  body.dark .kbd-hint { color: #777; }
+  body.dark .kbd-hint kbd { background: #2a2a2a; border-color: #444; color: #aaa; }
+
+  /* Filters */
+  body.dark .filters { background: #1e1e1e; border-bottom-color: #333; }
+  body.dark .fb { background: #2a2a2a; border-color: #444; color: #aaa; }
+  body.dark .fb:hover { border-color: #4CAF50; color: #4CAF50; background: #1e2e1e; }
+  body.dark .fb.on { background: #1e2e1e; border-color: #4CAF50; color: #4CAF50; }
+  body.dark .fb .ct { background: #4CAF50; }
+  body.dark .fd { background: #2a2a2a; border-color: #444; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  body.dark .fs { background: #333; border-color: #555; color: #E0E0E0; }
+  body.dark .fs:focus { border-color: #4CAF50; }
+  body.dark .fo { color: #ccc; }
+  body.dark .fo:hover { background: #333; }
+  body.dark .fo input { accent-color: #4CAF50; }
+  body.dark .fo-desc { color: #888; }
+  body.dark .clr:hover { color: #ff6666; }
+  body.dark .fsep { background: #444; }
+  body.dark .yi { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+
+  /* Results bar */
+  body.dark .rinfo { color: #999; }
+  body.dark .rinfo strong { color: #E0E0E0; }
+  body.dark .ssel { background: #2a2a2a; border-color: #444; color: #aaa; }
+
+  /* Export */
+  body.dark .export-btn { background: #2a2a2a; border-color: #444; color: #aaa; }
+  body.dark .export-btn:hover { border-color: #4CAF50; color: #4CAF50; background: #1e2e1e; }
+  body.dark .export-dd { background: #2a2a2a; border-color: #444; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  body.dark .export-opt { color: #ccc; }
+  body.dark .export-opt:hover { background: #333; color: #4CAF50; }
+  body.dark .export-opt small { color: #777; }
+
+  /* AI button */
+  body.dark .ai-btn { background: #2E7D32; }
+  body.dark .ai-btn:hover { background: #388E3C; }
+
+  /* Settings */
+  body.dark .settings-btn { color: #666; }
+  body.dark .settings-btn:hover { color: #4CAF50; }
+  body.dark .settings-btn.has-key { color: #4CAF50; }
+
+  /* Cards */
+  body.dark .card { background: #1e1e1e; border-bottom-color: #333; }
+  body.dark .card:hover { background-color: #242424; }
+  body.dark .card.active-card { background-color: #1e2a1e; border-bottom-color: #4CAF50; }
+  body.dark .ctitle { color: #E0E0E0; }
+  body.dark .cj-ETP { background: #1c2d42; color: #6BA4E8; }
+  body.dark .cj-JBV { background: #1e2e1e; color: #4CAF50; }
+  body.dark .cj-SEJ { background: #2e2a1a; color: #D4A13A; }
+  body.dark .cauth { color: #888; }
+  body.dark .csnip { color: #888; }
+  body.dark .star-btn { color: #555; }
+
+  /* Detail section */
+  body.dark .details { }
+  body.dark .d-chips { border-bottom-color: #333; }
+  body.dark .chip { background: #2a2a2a; color: #aaa; }
+  body.dark .d-group { border-bottom-color: #333; }
+  body.dark .d-group-title { border-bottom-color: #333 !important; }
+  body.dark .d-label { color: #777; }
+  body.dark .d-text { color: #E0E0E0; }
+  body.dark .d-text.bionic b { color: #f0f0f0; }
+  body.dark .a11y-toggle { color: #777; }
+  body.dark .a11y-switch { background: #444; }
+  body.dark .a11y-switch::after { background: #ccc; }
+  body.dark .a11y-toggle input:checked + .a11y-switch { background: #4CAF50; }
+
+  /* Related papers */
+  body.dark .rel-tabs { border-bottom-color: #333; }
+  body.dark .rel-tab { color: #888; }
+  body.dark .rel-tab:hover { color: #E0E0E0; }
+  body.dark .rel-title { color: #E0E0E0; }
+  body.dark .rel-meta { color: #777; }
+  body.dark .rel-paper { border-bottom-color: #333; }
+
+  /* Pagination */
+  body.dark .pb { background: #2a2a2a; border-color: #444; color: #aaa; }
+  body.dark .pb:hover { border-color: #4CAF50; color: #4CAF50; }
+  body.dark .pb.on { background: #4CAF50; color: white; border-color: #4CAF50; }
+
+  /* Analytics */
+  body.dark .sc { background: #1e1e1e; border-color: #333; }
+  body.dark .sc-n { color: #E0E0E0; }
+  body.dark .sc-l { color: #888; }
+  body.dark .cb { background: #1e1e1e; border-color: #333; }
+  body.dark .cl { color: #E0E0E0; }
+  body.dark .analytics-tab { color: #888; }
+  body.dark .analytics-tab.on { color: #E0E0E0; border-bottom-color: #4CAF50; }
+  body.dark .analytics-tab:hover:not(.on) { color: #E0E0E0; }
+  body.dark .analytics-tabs { border-bottom-color: #333; }
+
+  /* Explorer heatmaps */
+  body.dark .gap-label { color: #E0E0E0; }
+  body.dark .gap-legend { color: #777; }
+
+  /* Comparison */
+  body.dark .comparison-card { background: #1e1e1e; border-color: #333; }
+  body.dark .comparison-card .cl { color: #E0E0E0; }
+  body.dark .comparison-table th { color: #888; border-bottom-color: #333; }
+  body.dark .comparison-table td { color: #E0E0E0; border-bottom-color: #2a2a2a; }
+  body.dark .comparison-stat { background: #1e1e1e; border-color: #333; }
+  body.dark .comparison-stat .j-name { color: #E0E0E0; }
+  body.dark .comparison-stat .stat-row { color: #888; }
+  body.dark .comparison-stat .stat-val { color: #E0E0E0; }
+
+  /* AI panel */
+  body.dark .ai-panel { background: #1e1e1e; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  body.dark .ai-panel-header { background: #1e1e1e; border-bottom-color: #333; }
+  body.dark .ai-panel-title { color: #E0E0E0; }
+  body.dark .ai-close { color: #777; }
+  body.dark .ai-close:hover { background: #333; color: #E0E0E0; }
+  body.dark .ai-summary-content h3 { color: #E0E0E0; }
+  body.dark .ai-summary-content h4 { color: #E0E0E0; }
+  body.dark .ai-summary-content p { color: #E0E0E0; }
+  body.dark .ai-summary-content ul, body.dark .ai-summary-content ol { color: #E0E0E0; }
+  body.dark .ai-summary-content strong { color: #f0f0f0; }
+  body.dark .ai-summary-content em { color: #aaa; }
+  body.dark .ai-paper-count-badge { background: #1e2e1e; color: #4CAF50; }
+  body.dark .ai-chat { border-top-color: #333; }
+  body.dark .ai-chat-msg.user .msg-bubble { background: #1e2e1e; color: #E0E0E0; }
+  body.dark .ai-chat-msg.assistant .msg-bubble { background: #2a2a2a; color: #E0E0E0; }
+  body.dark .ai-chat-input-row { background: #242424; border-top-color: #333; }
+  body.dark .ai-chat-input { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+  body.dark .ai-chat-input:focus { border-color: #4CAF50; }
+  body.dark .ai-chat-send { background: #2E7D32; }
+  body.dark .ai-chat-send:hover { background: #388E3C; }
+  body.dark .ai-export-btn { background: #2a2a2a; border-color: #444; color: #aaa; }
+  body.dark .ai-export-btn:hover { background: #1e2e1e; border-color: #4CAF50; color: #4CAF50; }
+
+  /* Modals */
+  body.dark .modal { background: #1e1e1e; }
+  body.dark .modal-header { border-bottom-color: #333; }
+  body.dark .modal-header h2 { color: #E0E0E0; }
+  body.dark .modal-body { }
+  body.dark .modal-field label { color: #E0E0E0; }
+  body.dark .modal-field input, body.dark .modal-field select { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+  body.dark .modal-field input:focus, body.dark .modal-field select:focus { border-color: #4CAF50; }
+  body.dark .modal-field small { color: #777; }
+  body.dark .modal-footer { background: #242424; border-top-color: #333; }
+  body.dark .modal-save { background: #2E7D32; }
+  body.dark .modal-save:hover { background: #388E3C; }
+  body.dark .modal-cancel { background: #2a2a2a; border-color: #444; color: #aaa; }
+
+  /* Shortcuts bar */
+  body.dark .shortcuts-help { background: #111; }
+
+  /* Toast */
+  body.dark .toast { background: #444; }
+
+  /* Loading */
+  body.dark .spinner { border-color: #444; border-top-color: #4CAF50; }
+  body.dark .loading p { color: #777; }
+  body.dark .empty { color: #777; }
+
+  /* Vtoggle border */
+  body.dark .vtoggle { border-bottom-color: #333; }
+
+  /* Heatmaps */
+  body.dark .heatmap-cell.zero { color: #555; background: #2a2a2a !important; }
+  body.dark .heatmap-tooltip { background: #2a2a2a; border-color: #444; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+  body.dark .heatmap-tooltip strong { color: #E0E0E0; }
+  body.dark .heatmap-tooltip .tt-count { color: #4CAF50; }
+  body.dark .heatmap-tooltip .tt-papers { color: #aaa; }
+  body.dark .heatmap-legend { color: #777; }
+  body.dark .heatmap-legend-bar { background: linear-gradient(to right, #333, #4CAF50); }
+  body.dark .row-header { color: #ccc !important; }
+
+  /* Explorer search */
+  body.dark .explorer-container input { background: #2a2a2a; border-color: #444; color: #E0E0E0; }
+  body.dark .explorer-container input:focus { border-color: #4CAF50; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+const JFULL = { ETP:'Entrepreneurship Theory & Practice', JBV:'Journal of Business Venturing', SEJ:'Strategic Entrepreneurship Journal' };
+const JCOL = { ETP:'#4A90E2', JBV:'#1A8917', SEJ:'#D4A13A' };
+const ADMIN_HASH = '1edde916b222ec56b87b59600b5ff947d37f2ab7d4ae0c19b5e5bb09d96cf8fa';
+async function verifyAdminPw(pw) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('') === ADMIN_HASH;
+}
+const IS_ADMIN_INIT = (()=>{try{return localStorage.getItem('erkb_admin')==='1';}catch{return false;}})();
+
+/* ===== localStorage helpers ===== */
+function loadBookmarks() {
+  try { return JSON.parse(localStorage.getItem('erkb_bookmarks') || '[]'); } catch { return []; }
+}
+function saveBookmarks(ids) {
+  try { localStorage.setItem('erkb_bookmarks', JSON.stringify(ids)); } catch {}
+}
+function loadAPISettings() {
+  try { return JSON.parse(localStorage.getItem('erkb_ai_settings') || 'null'); } catch { return null; }
+}
+function saveAPISettings(s) {
+  try { localStorage.setItem('erkb_ai_settings', JSON.stringify(s)); } catch {}
+}
+
+/* ===== Advanced search parser ===== */
+function parseSearchQuery(raw) {
+  const q = raw.trim();
+  if (!q) return null;
+  if (/\bOR\b/i.test(q)) {
+    const parts = q.split(/\s+OR\s+/i).map(s => s.trim()).filter(Boolean);
+    return { type: 'OR', terms: parts.map(p => parseSearchTerm(p)) };
+  }
+  const andParts = q.split(/\s+AND\s+/i);
+  if (andParts.length > 1) {
+    return { type: 'AND', terms: andParts.map(p => parseSearchTerm(p.trim())).filter(Boolean) };
+  }
+  const exactMatch = q.match(/^"(.+)"$/);
+  if (exactMatch) return { type: 'EXACT', term: exactMatch[1].toLowerCase() };
+  const words = q.split(/\s+/).filter(Boolean);
+  if (words.length > 1) {
+    const tokens = tokenize(q);
+    if (tokens.length > 1) {
+      return { type: 'AND', terms: tokens.map(t => ({ type: 'EXACT', term: t.toLowerCase() })) };
+    }
+  }
+  return { type: 'EXACT', term: q.toLowerCase() };
+}
+function parseSearchTerm(s) {
+  const m = s.match(/^"(.+)"$/);
+  if (m) return { type: 'EXACT', term: m[1].toLowerCase() };
+  return { type: 'EXACT', term: s.toLowerCase() };
+}
+function tokenize(q) {
+  const tokens = [];
+  const re = /"([^"]+)"|(\S+)/g;
+  let m;
+  while ((m = re.exec(q)) !== null) tokens.push(m[1] || m[2]);
+  return tokens;
+}
+/* Synonym map: normalized form → [variants that should also match] */
+const BM25_SYNONYMS = {
+  'wellbeing': ['well-being','wellbeing','well being'],
+  'well-being': ['wellbeing','well-being','well being'],
+  'startup': ['start-up','startup','startups','start-ups'],
+  'start-up': ['startup','start-up','startups','start-ups'],
+  'startups': ['start-ups','startups','startup','start-up'],
+  'start-ups': ['startups','start-ups','startup','start-up'],
+  'ecommerce': ['e-commerce','ecommerce'],
+  'e-commerce': ['ecommerce','e-commerce'],
+  'decisionmaking': ['decision-making','decisionmaking','decision making'],
+  'decision-making': ['decisionmaking','decision-making','decision making'],
+  'self-efficacy': ['selfefficacy','self-efficacy'],
+  'selfefficacy': ['self-efficacy','selfefficacy'],
+  'self-employment': ['selfemployment','self-employment'],
+  'selfemployment': ['self-employment','selfemployment'],
+  'crowdfunding': ['crowd-funding','crowdfunding','crowd funding'],
+  'crowd-funding': ['crowdfunding','crowd-funding','crowd funding'],
+  'r&d': ['r and d','research and development','r&d'],
+  'sme': ['smes','small and medium','small-and-medium'],
+  'smes': ['sme','small and medium','small-and-medium'],
+  'ipo': ['ipos','initial public offering'],
+  'vc': ['venture capital','venture capitalist'],
+  'ceo': ['chief executive officer','ceos'],
+  'csr': ['corporate social responsibility'],
+  'tmt': ['top management team'],
+};
+
+/* Lightweight stemmer: reduces words to a common root for fuzzy matching.
+   Handles plurals (adversities→adversity), -ing, -tion, -ness, -ment, -ly, etc.
+   Returns the stem — used so that "adversity" and "adversities" match the same docs. */
+function simpleStem(word) {
+  if (!word || word.length < 4) return word;
+  let w = word.toLowerCase();
+  /* Irregular plurals */
+  const irregulars = {
+    'children':'child','women':'woman','men':'man','people':'person',
+    'studies':'study','companies':'company','strategies':'strategy',
+    'opportunities':'opportunity','activities':'activity','communities':'community',
+    'capabilities':'capability','economies':'economy','industries':'industry',
+    'countries':'country','families':'family','policies':'policy',
+    'theories':'theory','categories':'category','identities':'identity',
+    'adversities':'adversity','inequities':'inequity','complexities':'complexity',
+    'universities':'university','anxieties':'anxiety','capacities':'capacity',
+    'personalities':'personality','vulnerabilities':'vulnerability',
+    'probabilities':'probability','nationalities':'nationality',
+    'municipalities':'municipality','disparities':'disparity',
+    'ambiguities':'ambiguity','novelties':'novelty',
+  };
+  if (irregulars[w]) return irregulars[w];
+  /* -ies → -y (e.g., adversities → adversity) — general rule */
+  if (w.endsWith('ies') && w.length > 5) return w.slice(0, -3) + 'y';
+  /* -ses, -xes, -zes, -ches, -shes → remove -es */
+  if (w.endsWith('ses') || w.endsWith('xes') || w.endsWith('zes') ||
+      w.endsWith('ches') || w.endsWith('shes'))
+    return w.slice(0, -2);
+  /* -ves → -f/-fe (e.g., lives→life, halves→half) */
+  if (w.endsWith('ves') && w.length > 5) return w.slice(0, -3) + 'f';
+  /* -s (but not -ss, -us, -is) */
+  if (w.endsWith('s') && !w.endsWith('ss') && !w.endsWith('us') &&
+      !w.endsWith('is') && w.length > 3)
+    return w.slice(0, -1);
+  return w;
+}
+
+function expandQueryTerms(terms) {
+  /* Expand query terms with synonyms, hyphen variants, and stem variants */
+  const expanded = new Set(terms);
+  terms.forEach(t => {
+    const tLow = t.toLowerCase();
+    /* Add explicit synonyms */
+    if (BM25_SYNONYMS[tLow]) BM25_SYNONYMS[tLow].forEach(s => expanded.add(s));
+    /* Hyphen normalization: "wellbeing" ↔ "well-being" and vice versa */
+    if (tLow.includes('-')) expanded.add(tLow.replace(/-/g, ''));
+    /* Also add the dehyphenated form for matching */
+    expanded.add(tLow.replace(/-/g, ''));
+    /* Add stem variant (e.g., adversities → adversity, entrepreneurial → entrepreneuri) */
+    const stem = simpleStem(tLow);
+    if (stem !== tLow) expanded.add(stem);
+  });
+  return [...expanded];
+}
+
+function matchesPaper(parsed, text) {
+  if (!parsed || !text) return !parsed;
+  const t = text.toLowerCase();
+  /* Also create dehyphenated version of text for fuzzy matching */
+  const tDehy = t.replace(/-/g, ' ');
+  if (parsed.type === 'EXACT') {
+    const term = parsed.term;
+    /* For short terms (≤3 chars) or known acronyms, use word-boundary matching
+       to avoid false positives like "AI" matching "fundraising" */
+    if (term.length <= 3 || /^[A-Za-z]+$/.test(term) && term === term.toUpperCase()) {
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const wb = "[\\s;,./()\\[\\]\"'\\-]";
+      return new RegExp("(?:^|" + wb + ")" + escaped + "(?=$|" + wb + ")", "i").test(t);
+    }
+    /* Check original text first */
+    if (t.includes(term)) return true;
+    /* Check with hyphens removed (e.g., "wellbeing" matches "well-being") */
+    const termDehy = term.replace(/-/g, '');
+    if (tDehy.replace(/\s/g,'').includes(termDehy) || tDehy.includes(termDehy)) return true;
+    /* Check synonyms */
+    const syns = BM25_SYNONYMS[term];
+    if (syns && syns.some(s => t.includes(s) || tDehy.includes(s.replace(/-/g, '')))) return true;
+    /* Check stem-based matching (e.g., "adversities" matches text with "adversity") */
+    const stem = simpleStem(term);
+    if (stem !== term && t.includes(stem)) return true;
+    /* Also check if stemmed versions of words in text match the query term */
+    /* Use regex to find words starting with the stem (covers plural/suffix variants) */
+    if (stem.length >= 4 && new RegExp('\\b' + stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(t)) return true;
+    return false;
+  }
+  if (parsed.type === 'AND') return parsed.terms.every(term => matchesPaper(term, text));
+  if (parsed.type === 'OR') return parsed.terms.some(term => matchesPaper(term, text));
+  return false;
+}
+function extractTerms(parsed) {
+  if (!parsed) return [];
+  if (parsed.type === 'EXACT') return [parsed.term];
+  if (parsed.type === 'AND' || parsed.type === 'OR') return parsed.terms.flatMap(t => extractTerms(t));
+  return [];
+}
+function hl(text, terms) {
+  if (!terms || !terms.length || !text) return text;
+  try {
+    /* Expand terms with hyphen variants and stems for highlighting */
+    const allTerms = new Set();
+    const stemPatterns = new Set();
+    terms.forEach(t => {
+      allTerms.add(t);
+      const tLow = t.toLowerCase();
+      if (BM25_SYNONYMS[tLow]) BM25_SYNONYMS[tLow].forEach(s => allTerms.add(s));
+      /* Hyphen variants: "wellbeing" should highlight "well-being" and vice versa */
+      if (tLow.includes('-')) allTerms.add(tLow.replace(/-/g, ''));
+      /* Stem-based: highlight "adversity", "adversities", etc. */
+      const stem = simpleStem(tLow);
+      if (stem && stem.length >= 4) stemPatterns.add(stem);
+    });
+    /* Build regex that matches hyphen-optional variants + stem-based variants */
+    const patterns = [...allTerms].map(t => {
+      const escaped = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return escaped.replace(/-/g, '[-\\s]?');
+    });
+    /* Add stem patterns that match the stem + any suffix (up to 6 chars) */
+    stemPatterns.forEach(stem => {
+      const escaped = stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      patterns.push(escaped + '\\w{0,6}');
+    });
+    const regex = new RegExp(`(${patterns.join('|')})`, 'gi');
+    const parts = String(text).split(regex);
+    return parts.map((p, i) => regex.test(p) ? (() => { regex.lastIndex = 0; return <mark key={i} style={{background:'#FFF3B0',borderRadius:2,padding:'0 1px'}}>{p}</mark>; })() : p);
+  } catch { return text; }
+}
+
+/* ===== BM25 Relevance Scoring ===== */
+const BM25_FIELDS = [
+  { key: 'title',    weight: 3.0 },
+  { key: 'authors',  weight: 1.5 },
+  { key: 'findings', weight: 1.2 },
+  { key: 'abstract', weight: 1.0 },
+  { key: 'tName',    weight: 0.8 },
+  { key: 'tags',     weight: 0.8 },
+  { key: 'iv',       weight: 0.7 },
+  { key: 'dv',       weight: 0.7 },
+  { key: 'rq',       weight: 0.6 },
+  { key: 'gaps',     weight: 0.5 },
+  { key: 'notes',    weight: 0.4 },
+];
+const BM25_K1 = 1.5, BM25_B = 0.75;
+
+function bm25Tokenize(text) {
+  if (!text) return [];
+  return text.toLowerCase().replace(/[^\w\s-]/g, ' ').split(/\s+/).filter(t => t.length > 1);
+}
+
+/* Create a version of tokens with hyphens removed for fuzzy matching */
+function bm25TokenizeNorm(text) {
+  if (!text) return [];
+  return text.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(t => t.length > 1);
+}
+
+function buildCorpusStats(papers) {
+  /* Pre-compute per-field average doc length and document frequencies */
+  const fieldStats = {};
+  BM25_FIELDS.forEach(({ key }) => {
+    let totalLen = 0;
+    const df = {}; /* term → document frequency */
+    papers.forEach(p => {
+      const tokens = bm25Tokenize(p[key]);
+      totalLen += tokens.length;
+      const seen = new Set(tokens);
+      seen.forEach(t => { df[t] = (df[t] || 0) + 1; });
+    });
+    fieldStats[key] = { avgdl: totalLen / (papers.length || 1), df, N: papers.length };
+  });
+  return fieldStats;
+}
+
+function bm25Score(queryTerms, paper, corpusStats) {
+  if (!queryTerms.length) return 0;
+  /* Expand query terms with synonyms and hyphen variants */
+  const expandedTerms = expandQueryTerms(queryTerms);
+  let totalScore = 0;
+  BM25_FIELDS.forEach(({ key, weight }) => {
+    const tokens = bm25Tokenize(paper[key]);
+    /* Also create dehyphenated token list for fuzzy matching */
+    const tokensNorm = bm25TokenizeNorm(paper[key]);
+    const dl = tokens.length;
+    const stats = corpusStats[key];
+    if (!stats || dl === 0) return;
+    const { avgdl, df, N } = stats;
+    /* Count term frequencies in this document (both original and dehyphenated) */
+    const tf = {};
+    tokens.forEach(t => { tf[t] = (tf[t] || 0) + 1; });
+    const tfNorm2 = {};
+    tokensNorm.forEach(t => { tfNorm2[t] = (tfNorm2[t] || 0) + 1; });
+    /* Track which original query terms have matched to avoid double-counting */
+    const matchedOriginals = new Set();
+    expandedTerms.forEach(qt => {
+      const qtLower = qt.toLowerCase().replace(/[^\w\s-]/g, '');
+      const qtDehy = qtLower.replace(/-/g, '');
+      /* Check exact token match, then dehyphenated match, then substring match */
+      let freq = tf[qtLower] || 0;
+      if (freq === 0) freq = tfNorm2[qtDehy] || 0;
+      /* Also check if any token contains the query term as substring */
+      if (freq === 0) {
+        tokens.forEach(t => { if (t.includes(qtLower) || t.replace(/-/g,'').includes(qtDehy)) freq += 0.5; });
+      }
+      if (freq === 0) return;
+      /* Use IDF of the most common variant to avoid inflating rare-term scores */
+      const n = Math.max(df[qtLower] || 0, df[qtDehy] || 0, 1);
+      const idf = Math.log((N - n + 0.5) / (n + 0.5) + 1);
+      const tfScore = (freq * (BM25_K1 + 1)) / (freq + BM25_K1 * (1 - BM25_B + BM25_B * (dl / avgdl)));
+      totalScore += weight * idf * tfScore;
+    });
+  });
+  /* Normalize: if expanded terms are much larger than original, scale back to avoid inflation */
+  const expansionFactor = expandedTerms.length / (queryTerms.length || 1);
+  return totalScore / Math.max(1, Math.sqrt(expansionFactor));
+}
+
+function scoreAllPapers(papers, queryTerms, corpusStats) {
+  return papers.map(p => ({ ...p, _bm25: bm25Score(queryTerms, p, corpusStats) }));
+}
+
+/* Method category descriptions */
+const TYPE_NOTES = {
+  'Empirical-Quantitative': 'Numerical data with statistical analysis. Common designs: Survey, Longitudinal/Panel, Cross-Sectional, Experiment.',
+  'Empirical-Qualitative': 'Non-numerical data with interpretive analysis. Common designs: Case Study, Interview, Multiple/Comparative Case Study.',
+  'Empirical-Mixed': 'Combines quantitative and qualitative approaches in a single study.',
+  'Conceptual': 'Theory-building or conceptual development without primary data collection.',
+  'Review': 'Systematic or narrative review of existing literature.',
+  'Editorial': 'Editorial commentary, introduction to special issues, or field reflections.',
+  'Formal Model': 'Mathematical modeling, simulation, or formal theoretical analysis.',
+  'Other': 'Papers not fitting the above categories (e.g., methodological notes, teaching cases).',
+};
+
+function Filter({ label, options, selected, onChange, descs }) {
+  const [open, setOpen] = useState(false);
+  const [q, setQ] = useState('');
+  const ref = useRef();
+  useEffect(() => { const h=e=>{if(ref.current&&!ref.current.contains(e.target)){setOpen(false);setQ('');}}; document.addEventListener('mousedown',h); return()=>document.removeEventListener('mousedown',h); }, []);
+  const vis = q ? options.filter(o=>o.toLowerCase().includes(q.toLowerCase())) : options;
+  const n = selected.length;
+  return (
+    <div className="fg" ref={ref}>
+      <button className={`fb ${n?'on':''}`} onClick={()=>{setOpen(!open);setQ('');}}>
+        {label} {n>0&&<span className="ct">{n}</span>} <span style={{fontSize:8,opacity:0.4}}>&#9662;</span>
+      </button>
+      {open && <div className="fd" style={descs ? {minWidth:320} : undefined}>
+        {options.length>6 && <input className="fs" placeholder="Search..." value={q} onChange={e=>setQ(e.target.value)} autoFocus />}
+        {vis.map(o => <label key={o} className="fo"><input type="checkbox" checked={selected.includes(o)} onChange={()=>onChange(selected.includes(o)?selected.filter(v=>v!==o):[...selected,o])} />
+          {descs && descs[o] ? <div className="fo-wrap"><span>{o}</span><span className="fo-desc">{descs[o]}</span></div> : o}
+        </label>)}
+        {vis.length===0 && <div style={{padding:6,fontSize:11,color:'#ddd'}}>No matches</div>}
+      </div>}
+    </div>
+  );
+}
+
+/* Bionic reading: bold the first portion of each word to create fixation points */
+function bionicize(node) {
+  if (!node) return null;
+  if (typeof node === 'string') {
+    return node.split(/(\s+)/).map((segment, i) => {
+      if (/^\s+$/.test(segment)) return segment;
+      const boldLen = segment.length <= 3 ? Math.ceil(segment.length * 0.6) : Math.ceil(segment.length * 0.45);
+      return <span key={i}><b>{segment.slice(0, boldLen)}</b>{segment.slice(boldLen)}</span>;
+    });
+  }
+  if (typeof node === 'number') return node;
+  if (Array.isArray(node)) return node.map((child, i) => <React.Fragment key={i}>{bionicize(child)}</React.Fragment>);
+  if (node && node.props && node.props.children != null) {
+    return React.cloneElement(node, {}, bionicize(node.props.children));
+  }
+  return node;
+}
+
+function DItem({ label, children, bionic, dyslexic }) {
+  if (!children) return null;
+  const content = bionic ? bionicize(children) : children;
+  const cls = `d-text${bionic ? ' bionic' : ''}${dyslexic ? ' dyslexic' : ''}`;
+  return <div className="d-item">{label && <div className="d-label">{label}</div>}<div className={cls}>{content}</div></div>;
+}
+
+/* ===== Related Papers helpers ===== */
+function splitSemi(v) {
+  if (!v) return [];
+  return v.split(';').map(s => s.trim()).filter(s => s && s !== 'N/A' && s !== 'Not Specified');
+}
+
+function findRelated(paper, allPapers, mode, max) {
+  const results = [];
+  const pid = paper.id;
+  if (mode === 'tags') {
+    const myTags = splitSemi(paper.tags);
+    if (!myTags.length) return [];
+    const myTagsLower = myTags.map(t => t.toLowerCase());
+    for (const p of allPapers) {
+      if (p.id === pid) continue;
+      const pTags = splitSemi(p.tags);
+      if (!pTags.length) continue;
+      const pTagsLower = pTags.map(t => t.toLowerCase());
+      const shared = myTags.filter(t => pTagsLower.includes(t.toLowerCase()));
+      if (shared.length >= 2) results.push({ paper: p, matches: shared, score: shared.length });
+    }
+  } else if (mode === 'theory') {
+    const myTheories = splitSemi(paper.tName);
+    if (!myTheories.length) return [];
+    for (const p of allPapers) {
+      if (p.id === pid) continue;
+      const pTheories = splitSemi(p.tName);
+      const shared = myTheories.filter(t => pTheories.includes(t));
+      if (shared.length > 0) results.push({ paper: p, matches: shared, score: shared.length });
+    }
+  } else if (mode === 'topic') {
+    const myTopics = splitSemi(paper.tpL2 || paper.tpL1);
+    if (!myTopics.length) return [];
+    for (const p of allPapers) {
+      if (p.id === pid) continue;
+      const pTopics = splitSemi(p.tpL2 || p.tpL1);
+      const shared = myTopics.filter(t => pTopics.includes(t));
+      if (shared.length > 0) results.push({ paper: p, matches: shared, score: shared.length });
+    }
+  } else if (mode === 'method') {
+    const myMethods = splitSemi(paper.design);
+    if (!myMethods.length) return [];
+    for (const p of allPapers) {
+      if (p.id === pid) continue;
+      const pMethods = splitSemi(p.design);
+      const shared = myMethods.filter(t => pMethods.includes(t));
+      if (shared.length > 0) results.push({ paper: p, matches: shared, score: shared.length });
+    }
+  }
+  results.sort((a, b) => b.score - a.score || (b.paper.year || 0) - (a.paper.year || 0));
+  return results.slice(0, max || 5);
+}
+
+/* ===== Export helpers ===== */
+function exportCSV(papers) {
+  const cols = ['title','authors','year','journal','rq','findings'];
+  const headers = ['Title','Authors','Year','Journal','Research Question','Key Findings'];
+  const esc = v => { if(v==null) return ''; const s=String(v); return s.includes(',')||s.includes('"')||s.includes('\n') ? '"'+s.replace(/"/g,'""')+'"' : s; };
+  const rows = [headers.join(','), ...papers.map(p=>cols.map(c=>esc(p[c])).join(','))];
+  const blob = new Blob(['\ufeff'+rows.join('\n')], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `entrepreneurship_kb_export_${papers.length}papers.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function exportBibTeX(papers) {
+  const clean = s => (s||'').replace(/[{}]/g,'');
+  const lines = papers.map(p => {
+    const key = (p.authors||'Unknown').split(/[,;&]/)[0].trim().replace(/\s/g,'') + (p.year||'') + (p.id||'');
+    return `@article{${key},
+  author = {${clean(p.authors)}},
+  title = {${clean(p.title)}},
+  journal = {${JFULL[p.journal]||p.journal||''}},
+  year = {${p.year||''}}
+}`;
+  });
+  const blob = new Blob([lines.join('\n\n')], {type:'text/plain;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `entrepreneurship_kb_export_${papers.length}papers.bib`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ===== Excel Export (Admin only) ===== */
+function exportExcel(papers) {
+  const cols = ['id','title','authors','year','journal','journal_raw','type','abstract','rq','findings','gaps','future','tDisc','tName','theory_raw','tpL1','tpL2','design','technique','country','region','continent','dsType','dsNamed','sample_raw','controls','iv','dv','med','mod','tags','notes'];
+  const headers = ['ID','Title','Authors','Year','Journal','Journal (Full)','Type','Abstract','Research Question','Key Findings','Research Gaps','Future Directions','Theory Discipline','Theories','Theory (Raw)','Topic L1','Topic L2','Design','Technique','Country','Region','Continent','Data Source Type','Named Dataset','Sample Description','Control Variables','Independent Variables','Dependent Variables','Mediators','Moderators','Tags','Notes'];
+  const data = papers.map(p => cols.map(c => p[c] != null ? String(p[c]) : ''));
+  const ws = XLSX.utils.aoa_to_sheet([headers, ...data]);
+  /* Column widths */
+  ws['!cols'] = headers.map((h, i) => {
+    if (['Abstract','Key Findings','Research Question','Future Directions','Research Gaps','Notes'].includes(h)) return { wch: 60 };
+    if (['Title','Theories','Tags','Independent Variables','Dependent Variables'].includes(h)) return { wch: 40 };
+    if (['Authors','Journal (Full)','Country'].includes(h)) return { wch: 30 };
+    return { wch: Math.max(h.length + 2, 12) };
+  });
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Papers');
+  XLSX.writeFile(wb, `entrepreneurship_kb_full_${papers.length}papers.xlsx`);
+}
+
+/* ===== AI API helpers ===== */
+function buildSummaryPrompt(papers, searchQuery) {
+  const journalCounts = {};
+  const yearRange = [9999, 0];
+  const methods = {};
+  const theories = {};
+  const topics = {};
+  papers.forEach(p => {
+    journalCounts[p.journal] = (journalCounts[p.journal]||0) + 1;
+    if (p.year) { yearRange[0] = Math.min(yearRange[0], p.year); yearRange[1] = Math.max(yearRange[1], p.year); }
+    splitSemi(p.type).forEach(m => { methods[m] = (methods[m]||0)+1; });
+    splitSemi(p.tName).forEach(t => { theories[t] = (theories[t]||0)+1; });
+    splitSemi(p.tpL2 || p.tpL1).forEach(t => { topics[t] = (topics[t]||0)+1; });
+  });
+
+  /* Two-stage strategy for large sets: if >150 papers AND BM25 scores available,
+     send top 80 with full detail + remaining as brief context.
+     For ≤150 papers, send all with full detail. */
+  const hasBM25 = papers.length > 0 && papers[0]._bm25 !== undefined;
+  const useTwoStage = papers.length > 150 && hasBM25;
+  const TOP_N = 80;
+
+  let sorted = papers;
+  if (useTwoStage) {
+    sorted = [...papers].sort((a, b) => (b._bm25 || 0) - (a._bm25 || 0));
+  }
+  const detailPapers = useTwoStage ? sorted.slice(0, TOP_N) : sorted;
+  const contextPapers = useTwoStage ? sorted.slice(TOP_N) : [];
+
+  const paperSummaries = detailPapers.map((p, i) => {
+    let entry = `[${i+1}] ${p.authors} (${p.year}). "${p.title}" ${p.journal}.`;
+    if (p.abstract) entry += `\n  Abstract: ${p.abstract}`;
+    if (p.findings) entry += `\n  Findings: ${p.findings}`;
+    if (p.tName) entry += `\n  Theories: ${p.tName}`;
+    if (p.type) entry += `\n  Type: ${p.type}`;
+    if (p.design) entry += `\n  Design: ${p.design}`;
+    if (p.technique) entry += `\n  Technique: ${p.technique}`;
+    if (p.iv) entry += `\n  IV: ${p.iv}`;
+    if (p.dv) entry += `\n  DV: ${p.dv}`;
+    if (p.med) entry += `\n  Mediators: ${p.med}`;
+    if (p.mod) entry += `\n  Moderators: ${p.mod}`;
+    if (p.gaps) entry += `\n  Research Gaps: ${p.gaps}`;
+    if (p.future) entry += `\n  Future Directions: ${p.future}`;
+    if (p.rq) entry += `\n  Research Question: ${p.rq}`;
+    if (p.sample_raw) entry += `\n  Sample: ${p.sample_raw}`;
+    return entry;
+  }).join('\n\n');
+
+  const contextList = contextPapers.length > 0
+    ? '\n\nADDITIONAL CONTEXT PAPERS (title + year + journal only):\n' +
+      contextPapers.map((p, i) => `[C${i+1}] ${p.authors} (${p.year}). "${p.title}" ${p.journal}.`).join('\n')
+    : '';
+
+  const topTheories = Object.entries(theories).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([t,c])=>`${t} (${c})`).join(', ');
+  const topTopics = Object.entries(topics).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([t,c])=>`${t} (${c})`).join(', ');
+  const topMethods = Object.entries(methods).sort((a,b)=>b[1]-a[1]).map(([m,c])=>`${m} (${c})`).join(', ');
+
+  return {
+    system: `You are a senior entrepreneurship researcher writing a targeted literature review. You are known for producing precise, evidence-based syntheses that report SPECIFIC DIRECTIONAL FINDINGS — not vague generalities.
+
+CRITICAL RULES:
+1. RELEVANCE FIRST: Before synthesizing, you MUST identify which papers are actually relevant to the search query. Exclude papers that only tangentially mention the topic or are not substantively about it. Clearly state how many papers you retained and which (by number) you excluded and why.
+2. DIRECTIONAL FINDINGS: Never write vague statements like "X can affect Y" or "X is linked to Y." Instead, always report the DIRECTION and MECHANISM: "X increases/decreases Y through mechanism Z" or "X positively predicts Y, but this effect is attenuated/strengthened when..."
+3. SPECIFIC EVIDENCE: For every claim, cite the specific paper(s) and include concrete details: effect directions, key moderating conditions, sample characteristics, boundary conditions.
+4. NO FILLER: Do not pad with generic academic phrasing. Every sentence should convey substantive, actionable information a researcher would need.
+5. CONTRADICTIONS MATTER: When papers disagree, explicitly note the contradiction and what might explain it (different samples, methods, contexts).`,
+    user: `Synthesize the following ${papers.length} papers${searchQuery ? ` from a search for "${searchQuery}"` : ''} from the Entrepreneurship Research Knowledge Base (3 top journals: ETP, JBV, SEJ).
+
+DATASET OVERVIEW:
+- Total papers returned by search: ${papers.length}
+- Journals: ${Object.entries(journalCounts).map(([j,c])=>`${j}: ${c}`).join(', ')}
+- Year range: ${yearRange[0]}–${yearRange[1]}
+- Methods: ${topMethods}
+- Top theories: ${topTheories || 'Various'}
+- Top topics: ${topTopics || 'Various'}
+
+${useTwoStage
+  ? `PAPER DATA (top ${TOP_N} most relevant papers with full detail, ranked by BM25 relevance score, plus ${contextPapers.length} context papers with titles only):`
+  : `PAPER DATA (all ${papers.length} papers, full detail):`}
+${paperSummaries}${contextList}
+
+REQUIRED OUTPUT FORMAT:
+
+### Step 1: Relevance Filtering
+${searchQuery ? `The search query was "${searchQuery}". List which papers (by number) are DIRECTLY relevant to this topic and which are NOT (with a one-line reason for exclusion). Only synthesize the relevant papers in subsequent sections.` : 'All papers included (no specific search query).'}
+
+### Overview
+Number of relevant papers retained, journals, year range. One paragraph framing what this body of research collectively addresses.
+
+### Key Findings by Theme
+This is the MOST IMPORTANT section. Organize findings into clear thematic clusters. For each theme:
+- State the theme name as a sub-heading
+- Report SPECIFIC directional findings: "Author (Year) found that X **increases/decreases** Y (direction: positive/negative, magnitude if available). This effect is **mediated by** M and **moderated by** Z."
+- When multiple papers address the same relationship, synthesize: "Across N studies, the evidence consistently shows that X → Y is positive (Author1, Year1; Author2, Year2), though Author3 (Year3) found this reverses when [condition]."
+- Note any contradictory findings explicitly
+- Every finding must specify: the direction of the effect, the mechanism if known, and any boundary conditions
+
+### Theoretical Frameworks
+Which specific theories are used, how they explain the phenomena, and where theoretical gaps exist. Don't just name theories — explain what they predict and whether the evidence supports those predictions.
+
+### Methodological Assessment
+Methods used, sample characteristics, strengths and limitations. Flag any methodological concerns (e.g., cross-sectional designs limiting causal claims, small samples, self-report bias).
+
+### Research Gaps & Future Directions
+Specific, actionable research gaps. Not generic calls for "more research" but specific questions left unanswered, specific methodological improvements needed, and specific theoretical extensions proposed by the authors.
+
+### Variable Map
+Present as a structured list:
+- **Independent Variables**: List each with which papers use it
+- **Dependent Variables**: Same
+- **Mediators**: Same, with the pathway they mediate (X → M → Y)
+- **Moderators**: Same, with what relationship they moderate and in which direction
+
+Use Markdown. Be thorough and specific. A reader should understand the actual state of knowledge on this topic from your summary alone.`
+  };
+}
+
+async function callAI(messages, settings) {
+  if (!settings || !settings.apiKey) throw new Error('No API key configured. Click the settings gear to add your key.');
+
+  if (settings.provider === 'anthropic') {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': settings.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: settings.model || 'claude-sonnet-4-20250514',
+        max_tokens: 16384,
+        system: messages[0]?.role === 'system' ? messages[0].content : undefined,
+        messages: messages.filter(m => m.role !== 'system').map(m => ({ role: m.role, content: m.content }))
+      })
+    });
+    if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.error?.message || `Anthropic API error: ${res.status}`); }
+    const data = await res.json();
+    return data.content[0].text;
+  } else {
+    /* OpenAI chat/completions */
+    const model = settings.model || 'gpt-4o';
+    /* Newer OpenAI models (gpt-4.1, gpt-5, o1, o3, etc.) use max_completion_tokens; older ones use max_tokens */
+    const isNewModel = /^(gpt-[4-9]\.\d|gpt-[5-9]|o[1-9]|o\d-)/.test(model);
+    const tokenParam = isNewModel ? { max_completion_tokens: 16384 } : { max_tokens: 4096 };
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${settings.apiKey}` },
+      body: JSON.stringify({
+        model: model,
+        messages: messages,
+        ...tokenParam
+      })
+    });
+    const providerName = 'OpenAI';
+    if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.error?.message || `${providerName} API error: ${res.status}`); }
+    const data = await res.json();
+    console.log(`[ERKB AI] Raw ${providerName} response keys:`, Object.keys(data), 'choices:', data.choices?.length, 'finish_reason:', data.choices?.[0]?.finish_reason);
+    /* Handle various response formats including newer models */
+    const msg = data.choices?.[0]?.message;
+    const text = msg?.content || msg?.refusal || data.choices?.[0]?.text || data.output_text || data.output || '';
+    if (!text) {
+      console.error('[ERKB AI] Full response:', JSON.stringify(data).slice(0, 2000));
+      throw new Error(`Empty response from ${providerName} API. Check browser console (F12) for details. finish_reason: ` + (data.choices?.[0]?.finish_reason || 'unknown'));
+    }
+    if (msg?.refusal && !msg?.content) throw new Error('Model refused the request: ' + msg.refusal);
+    return text;
+  }
+}
+
+/* Simple markdown to React renderer */
+function renderMarkdown(text) {
+  if (!text) return null;
+  const lines = text.split('\n');
+  const elements = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (line.startsWith('#### ')) {
+      elements.push(<h4 key={i} dangerouslySetInnerHTML={{__html: inlineMarkdown(line.slice(5))}} />);
+    } else if (line.startsWith('### ')) {
+      elements.push(<h3 key={i}>{line.slice(4)}</h3>);
+    } else if (line.startsWith('## ')) {
+      elements.push(<h3 key={i}>{line.slice(3)}</h3>);
+    } else if (line.startsWith('- ') || line.startsWith('* ')) {
+      const items = [];
+      while (i < lines.length && (lines[i].startsWith('- ') || lines[i].startsWith('* '))) {
+        items.push(<li key={i} dangerouslySetInnerHTML={{__html: inlineMarkdown(lines[i].slice(2))}} />);
+        i++;
+      }
+      elements.push(<ul key={'ul'+i}>{items}</ul>);
+      continue;
+    } else if (/^\d+\.\s/.test(line)) {
+      const items = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i])) {
+        items.push(<li key={i} dangerouslySetInnerHTML={{__html: inlineMarkdown(lines[i].replace(/^\d+\.\s/,''))}} />);
+        i++;
+      }
+      elements.push(<ol key={'ol'+i}>{items}</ol>);
+      continue;
+    } else if (line.trim()) {
+      elements.push(<p key={i} dangerouslySetInnerHTML={{__html: inlineMarkdown(line)}} />);
+    }
+    i++;
+  }
+  return elements;
+}
+function inlineMarkdown(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`(.+?)`/g, '<code>$1</code>')
+    .replace(/\[(\d+)\]/g, '<strong style="color:#1A8917">[$1]</strong>');
+}
+
+/* ===== Wiki / Documentation Tab ===== */
+function WikiTab({ papers }) {
+  const n = papers.length;
+  const pct = (field, exclude) => {
+    const filled = papers.filter(p => {
+      const v = p[field];
+      if (!v) return false;
+      const s = String(v).trim().toLowerCase();
+      return s && s !== 'n/a' && s !== 'na' && s !== 'none' && (!exclude || !exclude.includes(s));
+    }).length;
+    return Math.round(100 * filled / n);
+  };
+  const countVal = (field, val) => papers.filter(p => {
+    const v = p[field];
+    if (!v) return false;
+    return String(v).split(';').map(x => x.trim()).includes(val);
+  }).length;
+  const countUniq = (field) => {
+    const s = new Set();
+    papers.forEach(p => { if (p[field]) String(p[field]).split(';').forEach(x => { const v = x.trim(); if (v && v !== 'N/A') s.add(v); }); });
+    return s.size;
+  };
+
+  return (
+    <div className="wiki">
+      <h2>Knowledge Base Documentation</h2>
+      <p className="wiki-subtitle">
+        This page documents how the Entrepreneurship Research Knowledge Base was constructed, from raw PDF papers to the interactive web app.
+        It covers the three-phase pipeline (extraction, standardization, and filtering), the meaning of every filter, and the data fields available for export.
+      </p>
+
+      <div className="wiki-toc">
+        <h4>Contents</h4>
+        <ol>
+          <li><a href="#wiki-overview">Overview</a></li>
+          <li><a href="#wiki-extraction">Phase 1: PDF Extraction</a></li>
+          <li><a href="#wiki-standardization">Phase 2: Standardization</a></li>
+          <li><a href="#wiki-filtering">Phase 3: Filtering &amp; Export</a></li>
+          <li><a href="#wiki-filters">Filter Reference</a></li>
+          <li><a href="#wiki-json">JSON Data Fields</a></li>
+        </ol>
+      </div>
+
+      <h3 id="wiki-overview">1. Overview</h3>
+
+      <div className="wiki-flow">
+        <div className="wiki-flow-box"><div className="wf-label">Input</div><div className="wf-value">~3,800 PDFs</div></div>
+        <div className="wiki-flow-arrow">&rarr;</div>
+        <div className="wiki-flow-box"><div className="wf-label">Phase 1</div><div className="wf-value">AI Extraction</div></div>
+        <div className="wiki-flow-arrow">&rarr;</div>
+        <div className="wiki-flow-box"><div className="wf-label">Phase 2</div><div className="wf-value">Standardization (22 functions)</div></div>
+        <div className="wiki-flow-arrow">&rarr;</div>
+        <div className="wiki-flow-box"><div className="wf-label">Phase 3</div><div className="wf-value">Filter &amp; Dedup</div></div>
+        <div className="wiki-flow-arrow">&rarr;</div>
+        <div className="wiki-flow-box"><div className="wf-label">Final</div><div className="wf-value">{n.toLocaleString()} papers &rarr; 32 JSON fields</div></div>
+      </div>
+
+      <p>
+        The knowledge base covers <strong>{n.toLocaleString()}</strong> papers from three top entrepreneurship journals:
+        <strong>ETP</strong> (Entrepreneurship Theory and Practice),
+        <strong>JBV</strong> (Journal of Business Venturing), and
+        <strong>SEJ</strong> (Strategic Entrepreneurship Journal),
+        spanning {Math.min(...papers.filter(p=>p.year).map(p=>p.year))}&ndash;{Math.max(...papers.filter(p=>p.year).map(p=>p.year))}.
+      </p>
+      <p>
+        Papers are processed in three phases, both AI-assisted. <strong>Phase 1</strong> uses a large language model (Claude) to read each PDF
+        and extract 23 structured fields. <strong>Phase 2</strong> applies a reproducible Python codebook (<code>standardization_codebook.py</code>)
+        with 22 functions that clean, normalize, and classify the raw extractions into standardized taxonomies, using a two-layer architecture:
+        rule-based regex matching (85&ndash;98% coverage) followed by AI-powered classification for ambiguous cases.
+        <strong>Phase 3</strong> filters out duplicates, OCR failures, non-research content, and retracted papers, then exports 32 fields to JSON for this app.
+      </p>
+
+      <h3 id="wiki-extraction">2. Phase 1: PDF Extraction (23 raw columns)</h3>
+      <p>
+        Each PDF paper is processed by the <code>paper-knowledge-base</code> skill, which uses Claude to perform a deep read of the full paper text
+        and extract structured information. The extraction operates in a single comprehension pass per paper (not regex), producing one row in an Excel file.
+      </p>
+
+      <h4>Extracted Fields</h4>
+      <table className="wiki-table">
+        <thead><tr><th>#</th><th>Column</th><th>Description</th><th>Coverage</th></tr></thead>
+        <tbody>
+          {[
+            ['paper_id','Sequential identifier','100'],['authors','Author names','100'],['year','Publication year','100'],
+            ['title','Full paper title','100'],['journal','Journal name (raw)','100'],
+            ['paper_type','Paper type (free-text)','100'],['topic_tags','Semicolon-separated topic keywords','100'],
+            ['abstract','Paper abstract',String(pct('abstract'))],
+            ['research_gaps_previous_lit','Research gaps addressed',String(pct('gaps'))],
+            ['research_question','Core research question(s)',String(pct('rq'))],
+            ['theoretical_lens','Theoretical framework / lens',String(pct('theory_raw'))],
+            ['independent_variables','Independent variables',String(pct('iv'))],
+            ['dependent_variables','Dependent variables',String(pct('dv'))],
+            ['mediators','Mediating variables',String(pct('med'))],
+            ['moderators','Moderating variables',String(pct('mod'))],
+            ['control_variables','Control variables',String(pct('controls'))],
+            ['sample','Sample description',String(pct('sample_raw'))],
+            ['data_source','Data source description',String(pct('dsType'))],
+            ['country_context','Geographic context',String(pct('country'))],
+            ['method','Research methodology',String(pct('design'))],
+            ['key_findings','Main findings and results',String(pct('findings'))],
+            ['future_directions','Suggested future research',String(pct('future'))],
+            ['connections_and_notes','Cross-paper connections',String(pct('notes'))]
+          ].map(([col,desc,cov],i)=>(
+            <tr key={col}><td>{i+1}</td><td><code>{col}</code></td><td>{desc}</td><td><span className="wiki-stat">{cov}%</span></td></tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h3 id="wiki-standardization">3. Phase 2: Standardization Pipeline</h3>
+      <p>
+        A reproducible Python codebook (<code>standardization_codebook.py</code>) transforms the 23 raw columns into clean,
+        analysis-ready standardized variables. The codebook is the single source of truth: running it regenerates the entire
+        standardized database from raw data. It uses a two-layer architecture for every variable:
+      </p>
+      <p>
+        <strong>Layer 1 (Rule-based):</strong> Regex pattern matching against raw text columns. Deterministic, fast, and typically
+        handles 85&ndash;98% of papers. <strong>Layer 2 (AI):</strong> For remaining unmatched papers, Claude reads each paper's
+        metadata and classifies it. Results are recorded as manual override dictionaries in the codebook, making future runs
+        fully reproducible without needing AI again.
+      </p>
+
+      <div className="wiki-pipeline">
+        <div className="wiki-step"><div className="wiki-step-num">1</div><div className="wiki-step-body"><div className="wiki-step-title">Raw Data Fixes</div><div className="wiki-step-desc">Patches extraction failures (garbled text, missing fields) directly in the raw data before any classification.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">2</div><div className="wiki-step-body"><div className="wiki-step-title">Year, Journal, and Text Cleanup</div><div className="wiki-step-desc">Cleans publication year, standardizes journal names to ETP/JBV/SEJ, and polishes text fields (abstract, research question, findings, gaps, future directions, notes, sample description, variables) by removing boilerplate and fixing formatting artifacts.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">3</div><div className="wiki-step-body"><div className="wiki-step-title">Paper Type Classification</div><div className="wiki-step-desc">Maps free-text <code>paper_type</code> to 8 standardized categories (Empirical-Quantitative, Empirical-Qualitative, Empirical-Mixed, Conceptual, Review, Editorial, Formal Model, Other) with 100% coverage.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">4</div><div className="wiki-step-body"><div className="wiki-step-title">Method Design &amp; Technique</div><div className="wiki-step-desc">Classifies research methodology into design (21 categories: Survey, Case Study, Experiment, Longitudinal/Panel, etc.) and technique (24 categories: OLS, SEM, HLM, fsQCA, Grounded Theory, etc.). Only for empirical papers.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">5</div><div className="wiki-step-body"><div className="wiki-step-title">Geographic Context</div><div className="wiki-step-desc">Extracts ISO country names, maps to UN sub-regions and continents. Handles multi-country studies with semicolon separation.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">6</div><div className="wiki-step-body"><div className="wiki-step-title">Theoretical Framework</div><div className="wiki-step-desc">Matches <code>theoretical_lens</code> against 250+ theory patterns to identify {countUniq('tName')} canonical theory names across {countUniq('tDisc')} disciplines.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">7</div><div className="wiki-step-body"><div className="wiki-step-title">Data Source Classification</div><div className="wiki-step-desc">Classifies data sources into 9 types and identifies {countUniq('dsNamed')} named datasets (GEM, PSED, Crunchbase, Kauffman Firm Survey, etc.).</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">8</div><div className="wiki-step-body"><div className="wiki-step-title">Topic Taxonomy</div><div className="wiki-step-desc">Maps AI-extracted topic tags to a two-level taxonomy: {countUniq('tpL1')} L1 domains and {countUniq('tpL2')} L2 subtopics.</div></div></div>
+        <div className="wiki-step"><div className="wiki-step-num">9</div><div className="wiki-step-body"><div className="wiki-step-title">Quality Flagging</div><div className="wiki-step-desc">Flags problematic entries as DUPLICATE, OCR_FAILED, RETRACTED, or NON_RESEARCH. Only papers flagged OK pass to the final database.</div></div></div>
+      </div>
+
+      <h3 id="wiki-filtering">4. Phase 3: Filtering &amp; Export</h3>
+      <p>
+        The final database retains only papers with <code>std_flag = OK</code>. Duplicates (by title), OCR failures, retracted papers,
+        and non-research content (editorial board listings, tables of contents) are removed. The resulting {n.toLocaleString()} papers
+        are exported to 32 JSON fields for this web app.
+      </p>
+
+      <h3 id="wiki-filters">5. Filter Reference</h3>
+      <p>The filters in the search bar correspond to standardized columns. Here is what each filter means and its possible values.</p>
+
+      <h4>Journal <span className="wiki-stat">{pct('journal')}% coverage</span></h4>
+      <table className="wiki-table">
+        <thead><tr><th>Value</th><th>Full Name</th><th>Papers</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ETP</strong></td><td>Entrepreneurship Theory and Practice</td><td>{papers.filter(p=>p.journal==='ETP').length.toLocaleString()}</td></tr>
+          <tr><td><strong>JBV</strong></td><td>Journal of Business Venturing</td><td>{papers.filter(p=>p.journal==='JBV').length.toLocaleString()}</td></tr>
+          <tr><td><strong>SEJ</strong></td><td>Strategic Entrepreneurship Journal</td><td>{papers.filter(p=>p.journal==='SEJ').length.toLocaleString()}</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Paper Type <span className="wiki-stat">{pct('type')}% coverage</span></h4>
+      <p>Each paper is classified into one of 8 types based on its methodology and content.</p>
+      <table className="wiki-table">
+        <thead><tr><th>Value</th><th>Description</th><th>Papers</th></tr></thead>
+        <tbody>
+          {[['Empirical-Quantitative','Statistical/numerical methods (regression, SEM, experiments, surveys)'],['Empirical-Qualitative','Interpretive/field methods (case studies, interviews, ethnography)'],['Empirical-Mixed','Combines quantitative and qualitative approaches'],['Conceptual','Theory-building or conceptual development without primary data'],['Review','Systematic or narrative review of existing literature'],['Editorial','Editorial commentary, special issue introductions, field reflections'],['Formal Model','Mathematical modeling, simulation, formal theoretical analysis'],['Other','Papers not fitting the above categories']].map(([val,desc])=>(
+            <tr key={val}><td><strong>{val}</strong></td><td>{desc}</td><td>{countVal('type',val).toLocaleString()}</td></tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h4>Design <span className="wiki-stat">{pct('design')}% coverage</span></h4>
+      <p>Research design (e.g., Survey, Case Study, Experiment, Longitudinal/Panel, etc.). There are <strong>{countUniq('design')} designs</strong> in the dataset. A paper may have multiple designs.</p>
+
+      <h4>Technique <span className="wiki-stat">{pct('technique')}% coverage</span></h4>
+      <p>Analytical technique (e.g., OLS, SEM, HLM, fsQCA, Grounded Theory, Content Analysis, etc.). There are <strong>{countUniq('technique')} techniques</strong>.</p>
+
+      <h4>Theory Discipline <span className="wiki-stat">{pct('tDisc')}% coverage</span></h4>
+      <p>The broad academic discipline of the paper's theoretical framework.</p>
+      <table className="wiki-table">
+        <thead><tr><th>Value</th><th>Papers</th></tr></thead>
+        <tbody>
+          {(() => { const vals = {}; papers.forEach(p => { if (p.tDisc) p.tDisc.split(';').forEach(d => { const v = d.trim(); if (v) vals[v] = (vals[v]||0)+1; }); }); return Object.entries(vals).sort((a,b)=>b[1]-a[1]).map(([val,ct])=>(
+            <tr key={val}><td><strong>{val}</strong></td><td>{ct.toLocaleString()}</td></tr>
+          )); })()}
+        </tbody>
+      </table>
+
+      <h4>Theory Name <span className="wiki-stat">{pct('tName')}% coverage</span></h4>
+      <p>Canonical theory name (e.g., "Resource-Based View", "Self-Efficacy", "Transaction Cost Economics"). There are <strong>{countUniq('tName')} unique theories</strong>. A paper may reference multiple theories.</p>
+
+      <h4>Topic L1 <span className="wiki-stat">{pct('tpL1')}% coverage</span></h4>
+      <p>High-level topic domain. There are <strong>{countUniq('tpL1')} domains</strong>.</p>
+      <table className="wiki-table">
+        <thead><tr><th>Value</th><th>Papers</th></tr></thead>
+        <tbody>
+          {(() => { const vals = {}; papers.forEach(p => { if (p.tpL1) p.tpL1.split(';').forEach(t => { const v = t.trim(); if (v) vals[v] = (vals[v]||0)+1; }); }); return Object.entries(vals).sort((a,b)=>b[1]-a[1]).map(([val,ct])=>(
+            <tr key={val}><td><strong>{val}</strong></td><td>{ct.toLocaleString()}</td></tr>
+          )); })()}
+        </tbody>
+      </table>
+
+      <h4>Sub-topic L2</h4>
+      <p>More specific topic area within the L1 domain. There are <strong>{countUniq('tpL2')} subtopics</strong>.</p>
+
+      <h4>Continent <span className="wiki-stat">{pct('continent')}% coverage</span></h4>
+      <table className="wiki-table">
+        <thead><tr><th>Value</th><th>Papers</th></tr></thead>
+        <tbody>
+          {['Americas','Europe','Asia','Africa','Oceania'].map(val=>(
+            <tr key={val}><td><strong>{val}</strong></td><td>{countVal('continent',val).toLocaleString()}</td></tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h4>Data Source Type <span className="wiki-stat">{pct('dsType')}% coverage</span></h4>
+      <table className="wiki-table">
+        <thead><tr><th>Value</th><th>Papers</th></tr></thead>
+        <tbody>
+          {(() => { const vals = {}; papers.forEach(p => { if (p.dsType) vals[p.dsType] = (vals[p.dsType]||0)+1; }); return Object.entries(vals).sort((a,b)=>b[1]-a[1]).map(([val,ct])=>(
+            <tr key={val}><td><strong>{val}</strong></td><td>{ct.toLocaleString()}</td></tr>
+          )); })()}
+        </tbody>
+      </table>
+
+      <h4>Named Dataset <span className="wiki-stat">{pct('dsNamed')}% coverage</span></h4>
+      <p>Specific named dataset (e.g., GEM, PSED, Crunchbase, Kauffman Firm Survey). There are <strong>{countUniq('dsNamed')} named datasets</strong> identified.</p>
+
+      <h4>Year Range</h4>
+      <p>Filter by publication year. The dataset spans {Math.min(...papers.filter(p=>p.year).map(p=>p.year))}&ndash;{Math.max(...papers.filter(p=>p.year).map(p=>p.year))}.</p>
+
+      <h3 id="wiki-json">6. JSON Data Fields (32 fields)</h3>
+      <p>
+        The <code>data.json</code> file contains 32 fields per paper, selected from the 51-column standardized Excel.
+      </p>
+      <table className="wiki-table">
+        <thead><tr><th>JSON Key</th><th>Description</th><th>Coverage</th></tr></thead>
+        <tbody>
+          {[
+            ['id','Sequential identifier','100'],['authors','Author names','100'],['year','Publication year','100'],['title','Paper title','100'],
+            ['journal','Journal abbreviation (ETP/JBV/SEJ)','100'],['journal_raw','Original journal name','100'],['type','Paper type (8 categories)','100'],
+            ['abstract','Paper abstract',String(pct('abstract'))],['rq','Research question',String(pct('rq'))],
+            ['findings','Key findings',String(pct('findings'))],['gaps','Research gaps',String(pct('gaps'))],
+            ['future','Future directions',String(pct('future'))],['notes','Cross-paper connections',String(pct('notes'))],
+            ['tags','Raw topic tags',String(pct('tags'))],['tpL1','Topic L1 domain',String(pct('tpL1'))],['tpL2','Topic L2 subtopic',String(pct('tpL2'))],
+            ['tName','Canonical theory name(s)',String(pct('tName'))],['tDisc','Theory discipline',String(pct('tDisc'))],['theory_raw','Raw theory text',String(pct('theory_raw'))],
+            ['design','Method design',String(pct('design'))],['technique','Analytical technique',String(pct('technique'))],
+            ['country','ISO country name(s)',String(pct('country'))],['region','UN sub-region',String(pct('region'))],['continent','Continent',String(pct('continent'))],
+            ['dsType','Data source type',String(pct('dsType'))],['dsNamed','Named dataset',String(pct('dsNamed'))],
+            ['sample_raw','Sample description',String(pct('sample_raw'))],
+            ['controls','Control variables',String(pct('controls'))],['iv','Independent variables',String(pct('iv'))],['dv','Dependent variables',String(pct('dv'))],
+            ['med','Mediators',String(pct('med'))],['mod','Moderators',String(pct('mod'))]
+          ].map(([key,desc,cov])=>(
+            <tr key={key}><td><code>{key}</code></td><td>{desc}</td><td><span className="wiki-stat">{cov}%</span></td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/* ===== Settings Modal ===== */
+function HelpGuide({ onClose }) {
+  return (
+    <div className="help-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="help-modal">
+        <div className="modal-header">
+          <h2>How to Use This Knowledge Base</h2>
+          <button onClick={onClose} style={{background:'none',border:'none',fontSize:20,cursor:'pointer',color:'#999',padding:4}}>&times;</button>
+        </div>
+        <div className="help-content">
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#128269;</span> Search</h3>
+            <p>Type keywords in the search bar to find papers across all fields (title, abstract, authors, methods, theories, etc.).</p>
+            <ul>
+              <li>Use <code>"quotes"</code> for exact phrases, e.g. <code>"social capital"</code></li>
+              <li>Use <code>AND</code> to require multiple terms, e.g. <code>gender AND venture capital</code></li>
+              <li>Use <code>OR</code> to match either term, e.g. <code>crowdfunding OR microfinance</code></li>
+              <li>Short terms like <code>AI</code> or <code>IPO</code> use smart word-boundary matching to avoid false positives</li>
+              <li>Results are ranked by relevance (BM25 scoring) when searching</li>
+            </ul>
+          </div>
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#9881;</span> Filters</h3>
+            <p>Use the filter buttons below the search bar to narrow results by journal, methodology (3 levels), theory discipline, topic area, geography, data source, and year range. Combine multiple filters to drill down precisely. Click "Clear all" to reset.</p>
+          </div>
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#128196;</span> Viewing Papers</h3>
+            <p>Click any paper card to expand its full details — research question, findings, variables, theories, and more. You can expand multiple papers at once for side-by-side comparison. Click again to collapse.</p>
+          </div>
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#11088;</span> My Collection</h3>
+            <p>Click the star icon on any paper to save it to your collection (stored in your browser). Switch to the "My Collection" tab to review saved papers, add notes, and export them as CSV or BibTeX.</p>
+          </div>
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#128202;</span> Analytics</h3>
+            <p>The "Analytics" tab provides visual insights across the entire dataset (or your current filtered results):</p>
+            <ul>
+              <li><strong>Overview</strong> — Publication trends, journal distribution, method & theory breakdowns</li>
+              <li><strong>Explorer</strong> — Interactive heatmaps showing co-occurrence patterns (e.g., methods by theory, topics by journal)</li>
+              <li><strong>Comparison</strong> — Side-by-side comparison across journals</li>
+            </ul>
+          </div>
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#129302;</span> AI Summarize</h3>
+            <p>If you have an OpenAI API key (set via the gear icon), you can select multiple papers and generate an AI-powered synthesis of their collective findings, gaps, and themes.</p>
+          </div>
+
+          <div className="help-section">
+            <h3><span className="help-icon">&#9000;</span> Keyboard Shortcuts</h3>
+            <ul>
+              <li><kbd>/</kbd> — Focus the search bar</li>
+              <li><kbd>&#8593;</kbd> <kbd>&#8595;</kbd> — Navigate between papers</li>
+              <li><kbd>Enter</kbd> — Expand/collapse selected paper</li>
+              <li><kbd>S</kbd> — Star/unstar selected paper</li>
+              <li><kbd>Esc</kbd> — Collapse all expanded papers, or close dialogs</li>
+            </ul>
+          </div>
+
+        </div>
+        <div className="help-footer">
+          <button className="help-dismiss" onClick={onClose}>Got it</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SettingsModal({ onClose, settings, onSave }) {
+  const [provider, setProvider] = useState(settings?.provider || 'openai');
+  const [apiKey, setApiKey] = useState(settings?.apiKey || '');
+  const [model, setModel] = useState(settings?.model || '');
+  const defaultModels = { openai: 'gpt-4o', anthropic: 'claude-sonnet-4-20250514' };
+  const defaultModel = defaultModels[provider] || 'gpt-4o';
+  const keyPlaceholders = { openai: 'sk-...', anthropic: 'sk-ant-...' };
+  const modelHints = {
+    openai: 'e.g., gpt-5.4, gpt-4.1, gpt-4o, o3, o1',
+    anthropic: 'e.g., claude-sonnet-4-20250514, claude-opus-4-20250514'
+  };
+  return (
+    <div className="modal-overlay" onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
+      <div className="modal">
+        <div className="modal-header">
+          <h2>AI Settings</h2>
+          <button className="ai-close" onClick={onClose}>&times;</button>
+        </div>
+        <div className="modal-body">
+          <div className="modal-field">
+            <label>Provider</label>
+            <select value={provider} onChange={e=>{setProvider(e.target.value);setModel('');}}>
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic (Claude)</option>
+            </select>
+          </div>
+          <div className="modal-field">
+            <label>API Key</label>
+            <input type="password" value={apiKey} onChange={e=>setApiKey(e.target.value)} placeholder={keyPlaceholders[provider]||'sk-...'} />
+            <small>Your key is stored locally in your browser only. Never sent anywhere except the API.</small>
+          </div>
+          <div className="modal-field">
+            <label>Model (optional)</label>
+            <input value={model} onChange={e=>setModel(e.target.value)} placeholder={`Default: ${defaultModel}`} />
+            <small>{modelHints[provider] || modelHints.openai}</small>
+          </div>
+        </div>
+        <div className="modal-footer">
+          <button className="modal-cancel" onClick={onClose}>Cancel</button>
+          <button className="modal-save" onClick={()=>{const s={provider,apiKey,model:model||defaultModel};saveAPISettings(s);onSave(s);onClose();}}>Save</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===== AI Summary Panel ===== */
+function AISummaryPanel({ papers, query, onClose }) {
+  const [summary, setSummary] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [elapsed, setElapsed] = useState(0);
+  const [chatMsgs, setChatMsgs] = useState([]);
+  const [chatInput, setChatInput] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
+  const chatEndRef = useRef();
+  const baseMessages = useRef([]);
+  const hasRun = useRef(false);
+  const timerRef = useRef(null);
+
+  /* Timer for loading state */
+  useEffect(() => {
+    if (loading) { setElapsed(0); timerRef.current = setInterval(() => setElapsed(s => s + 1), 1000); }
+    else { if (timerRef.current) clearInterval(timerRef.current); }
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [loading]);
+
+  const generateSummary = useCallback(async () => {
+    const settings = loadAPISettings();
+    if (!settings?.apiKey) { setError('No API key configured. Click the settings gear icon to add your key.'); return; }
+    setLoading(true);
+    setError('');
+    setSummary('');
+    setChatMsgs([]);
+    try {
+      const prompt = buildSummaryPrompt(papers, query);
+      const msgs = [
+        { role: 'system', content: prompt.system },
+        { role: 'user', content: prompt.user }
+      ];
+      console.log('[ERKB AI] Sending request to', settings.provider, settings.model, '| Papers:', papers.length);
+      const result = await callAI(msgs, settings);
+      console.log('[ERKB AI] Got response, length:', result?.length);
+      if (!result || !result.trim()) {
+        setError('The AI returned an empty response. Try regenerating or using a different model.');
+      } else {
+        setSummary(result);
+        baseMessages.current = [...msgs, { role: 'assistant', content: result }];
+      }
+    } catch (err) {
+      console.error('[ERKB AI] Error:', err);
+      setError(err.message || 'Unknown error occurred');
+    }
+    setLoading(false);
+  }, [papers, query]);
+
+  useEffect(() => { if (!hasRun.current) { hasRun.current = true; generateSummary(); } }, []);
+
+  useEffect(() => { chatEndRef.current?.scrollIntoView({behavior:'smooth'}); }, [chatMsgs]);
+
+  const sendChat = useCallback(async () => {
+    if (!chatInput.trim() || chatLoading) return;
+    const settings = loadAPISettings();
+    const userMsg = chatInput.trim();
+    setChatInput('');
+    setChatMsgs(prev => [...prev, { role: 'user', content: userMsg }]);
+    setChatLoading(true);
+    try {
+      const msgs = [...baseMessages.current, ...chatMsgs.map(m=>({role:m.role,content:m.content})), { role: 'user', content: userMsg }];
+      const result = await callAI(msgs, settings);
+      setChatMsgs(prev => [...prev, { role: 'assistant', content: result }]);
+      baseMessages.current = [...baseMessages.current, ...chatMsgs.map(m=>({role:m.role,content:m.content})), { role: 'user', content: userMsg }, { role: 'assistant', content: result }];
+    } catch (err) {
+      setChatMsgs(prev => [...prev, { role: 'assistant', content: `Error: ${err.message}` }]);
+    }
+    setChatLoading(false);
+  }, [chatInput, chatLoading, chatMsgs]);
+
+  const exportSummary = useCallback(() => {
+    let md = `# AI Literature Summary${query ? `: "${query}"` : ''}\n\n`;
+    md += `*Generated from ${papers.length} papers in the Entrepreneurship Research Knowledge Base*\n\n---\n\n`;
+    md += summary + '\n';
+    if (chatMsgs.length > 0) {
+      md += '\n---\n\n## Follow-up Discussion\n\n';
+      chatMsgs.forEach(m => {
+        md += m.role === 'user' ? `**Q:** ${m.content}\n\n` : `**A:** ${m.content}\n\n`;
+      });
+    }
+    md += '\n---\n\n## Papers Analyzed\n\n';
+    papers.forEach((p, i) => {
+      md += `${i+1}. ${p.authors} (${p.year}). "${p.title}" *${JFULL[p.journal]||p.journal}*.\n`;
+    });
+    const blob = new Blob([md], {type:'text/markdown;charset=utf-8;'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `ai_summary_${query ? query.replace(/\s+/g,'_').slice(0,30) : 'all'}_${papers.length}papers.md`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }, [summary, chatMsgs, papers, query]);
+
+  const sparkle = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l2.09 6.26L20.18 10l-6.09 1.74L12 18l-2.09-6.26L3.82 10l6.09-1.74z"/></svg>;
+
+  return (
+    <div className="ai-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="ai-panel">
+        <div className="ai-panel-header">
+          <div className="ai-panel-title">{sparkle} AI Literature Summary <span className="ai-paper-count-badge">{papers.length} papers</span>{query && <span style={{marginLeft:8,fontWeight:400,color:'#1A8917'}}>on &ldquo;{query}&rdquo;</span>}</div>
+          <div className="ai-panel-actions">
+            {summary && <button className="ai-export-btn" onClick={exportSummary}>Export .md</button>}
+            {summary && <button className="ai-export-btn" onClick={generateSummary}>Regenerate</button>}
+            <button className="ai-close" onClick={onClose}>&times;</button>
+          </div>
+        </div>
+
+        <div className="ai-panel-body">
+          {loading && <div className="ai-loading"><div className="spinner"></div><p>Synthesizing {papers.length} papers{query && <> on &ldquo;{query}&rdquo;</>}... ({elapsed}s)</p>{elapsed > 10 && <p style={{color:'#bbb',fontSize:11,marginTop:6}}>Large requests can take 30–90 seconds</p>}{papers.length > 150 && papers[0]?._bm25 !== undefined
+              ? <p style={{color:'#c8b8e0',fontSize:11,marginTop:4}}>Top 80 papers (by BM25 relevance) with full detail + {papers.length - 80} as context</p>
+              : papers.length > 50 && <p style={{color:'#c8b8e0',fontSize:11,marginTop:4}}>Sending all {papers.length} papers with full detail</p>}</div>}
+          {error && <div style={{padding:24,color:'#e55',fontSize:13}}>{error}</div>}
+          {summary && <div className="ai-summary-content">{renderMarkdown(summary)}</div>}
+        </div>
+
+        {summary && <div className="ai-chat">
+          {chatMsgs.length > 0 && <div className="ai-chat-msgs">
+            {chatMsgs.map((m, i) => (
+              <div key={i} className={`ai-chat-msg ${m.role}`}>
+                <div className="msg-bubble" dangerouslySetInnerHTML={{__html: inlineMarkdown(m.content.replace(/\n/g, '<br/>'))}} />
+              </div>
+            ))}
+            {chatLoading && <div className="ai-chat-msg assistant"><div className="msg-bubble"><em>Thinking...</em></div></div>}
+            <div ref={chatEndRef} />
+          </div>}
+          <div className="ai-chat-input-row">
+            <input className="ai-chat-input" placeholder="Ask a follow-up question about these papers..." value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}} />
+            <button className="ai-chat-send" onClick={sendChat} disabled={chatLoading || !chatInput.trim()}>Send</button>
+          </div>
+        </div>}
+      </div>
+    </div>
+  );
+}
+
+/* ===== Related Papers Section ===== */
+function RelatedPapers({ paper, allPapers }) {
+  const hasTags = paper.tags && splitSemi(paper.tags).length >= 2;
+  const hasTheory = paper.tName && splitSemi(paper.tName).length > 0;
+  const hasTopic = (paper.tpL2 || paper.tpL1) && splitSemi(paper.tpL2 || paper.tpL1).length > 0;
+  const hasMethod = paper.design && splitSemi(paper.design).length > 0;
+  const defaultTab = hasTags ? 'tags' : hasTheory ? 'theory' : hasTopic ? 'topic' : hasMethod ? 'method' : null;
+  const [tab, setTab] = useState(defaultTab);
+  useEffect(() => {
+    const validTab = (tab === 'tags' && hasTags) || (tab === 'theory' && hasTheory) || (tab === 'topic' && hasTopic) || (tab === 'method' && hasMethod);
+    if (!validTab) setTab(hasTags ? 'tags' : hasTheory ? 'theory' : hasTopic ? 'topic' : hasMethod ? 'method' : null);
+  }, [paper]);
+  const related = useMemo(() => tab ? findRelated(paper, allPapers, tab, 5) : [], [paper, allPapers, tab]);
+  if (!hasTags && !hasTheory && !hasTopic && !hasMethod) return null;
+
+  return (
+    <div className="d-group g-related">
+      <div className="d-group-title">Related Papers</div>
+      <div className="rel-tabs">
+        {hasTags && <button className={`rel-tab ${tab==='tags'?'on':''}`} onClick={()=>setTab('tags')}>By Keywords</button>}
+        {hasTheory && <button className={`rel-tab ${tab==='theory'?'on':''}`} onClick={()=>setTab('theory')}>By Theory</button>}
+        {hasTopic && <button className={`rel-tab ${tab==='topic'?'on':''}`} onClick={()=>setTab('topic')}>By Topic</button>}
+        {hasMethod && <button className={`rel-tab ${tab==='method'?'on':''}`} onClick={()=>setTab('method')}>By Method</button>}
+      </div>
+      {related.length > 0 ? related.map((r, i) => (
+        <div key={r.paper.id || i} className="rel-paper">
+          <div className="rel-title">{r.paper.title}</div>
+          <div className="rel-meta">{r.paper.authors} &middot; {r.paper.year} &middot; {r.paper.journal}</div>
+          <div className="rel-match">Shared: {r.matches.join(', ')}</div>
+        </div>
+      )) : <div className="rel-none">No related papers found{tab==='tags'?' (needs 2+ shared keywords)':` for this ${tab}`}</div>}
+    </div>
+  );
+}
+
+/* ===== Research Explorer: Helper Functions ===== */
+
+/* Theory × Topic Heatmap data builder */
+function buildTheoryTopicMatrix(papers) {
+  const theoryCounts = {};
+  const topicList = [];
+  const topicSet = new Set();
+  const matrix = {};    /* theory → topic → count */
+  const paperIds = {};  /* theory → topic → [paper ids] */
+
+  papers.forEach(p => {
+    const topics = p.tpL1 ? splitSemi(p.tpL1) : [];
+    topics.forEach(t => { if (!topicSet.has(t)) { topicSet.add(t); topicList.push(t); } });
+    const theories = p.tName ? splitSemi(p.tName) : [];
+    theories.forEach(th => {
+      theoryCounts[th] = (theoryCounts[th] || 0) + 1;
+      topics.forEach(tp => {
+        if (!matrix[th]) matrix[th] = {};
+        if (!paperIds[th]) paperIds[th] = {};
+        matrix[th][tp] = (matrix[th][tp] || 0) + 1;
+        if (!paperIds[th][tp]) paperIds[th][tp] = [];
+        paperIds[th][tp].push(p.id);
+      });
+    });
+  });
+
+  const topTheories = Object.entries(theoryCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 20)
+    .map(([name, count]) => ({ name, count }));
+  topicList.sort();
+
+  return { topTheories, topicList, matrix, paperIds };
+}
+
+/* Variable Relationship Map: fuzzy search + pathway extraction */
+function fuzzyMatchPapers(searchTerm, papers) {
+  if (!searchTerm || !searchTerm.trim()) return [];
+  const term = searchTerm.trim().toLowerCase();
+  return papers.filter(p => {
+    const fields = [p.iv, p.dv, p.med, p.mod, p.title, p.abstract, p.findings, p.tags, p.tName, p.rq, p.gaps, p.dsNamed];
+    return fields.some(f => f && f.toLowerCase().includes(term));
+  });
+}
+
+function extractPathways(papers) {
+  const pathwayMap = {}; /* "iv|||dv" → { iv, dv, meds:Set, mods:Set, papers:[] } */
+  papers.forEach(p => {
+    const ivs = p.iv ? splitSemi(p.iv).filter(v => v && v !== 'N/A' && v !== 'Not Specified') : [];
+    const dvs = p.dv ? splitSemi(p.dv).filter(v => v && v !== 'N/A' && v !== 'Not Specified') : [];
+    const meds = p.med ? splitSemi(p.med).filter(v => v && v !== 'N/A' && v !== 'Not Specified' && v !== 'None') : [];
+    const mods = p.mod ? splitSemi(p.mod).filter(v => v && v !== 'N/A' && v !== 'Not Specified' && v !== 'None') : [];
+
+    ivs.forEach(iv => {
+      dvs.forEach(dv => {
+        const key = iv.toLowerCase() + '|||' + dv.toLowerCase();
+        if (!pathwayMap[key]) pathwayMap[key] = { iv, dv, meds: new Set(), mods: new Set(), papers: [] };
+        meds.forEach(m => pathwayMap[key].meds.add(m));
+        mods.forEach(m => pathwayMap[key].mods.add(m));
+        pathwayMap[key].papers.push({ id: p.id, title: p.title, authors: p.authors, year: p.year, journal: p.journal });
+      });
+    });
+  });
+
+  return Object.values(pathwayMap)
+    .map(pw => ({ ...pw, meds: [...pw.meds], mods: [...pw.mods], count: pw.papers.length }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 50);
+}
+
+/* (buildMethodTopicMatrix and buildDisciplineTopicMatrix removed — replaced by buildDesignTopicMatrix in MethodTopicHeatmap) */
+
+function heatColor(count, maxCount) {
+  if (count === 0) return '#F7F7F7';
+  const t = Math.log(count + 1) / Math.log(maxCount + 1);
+  // Green gradient: light #E8F5E0 → medium #4CAF50 → dark #1A8917
+  const r = Math.round(232 - t * (232 - 26));
+  const g = Math.round(245 - t * (245 - 137));
+  const b = Math.round(224 - t * (224 - 23));
+  return `rgb(${r},${g},${b})`;
+}
+
+/* ===== Theory × Topic Heatmap Component ===== */
+function TheoryTopicHeatmap({ papers, allPapers }) {
+  const data = useMemo(() => buildTheoryTopicMatrix(papers), [papers]);
+  const [tooltip, setTooltip] = useState(null);
+
+  const maxCount = useMemo(() => {
+    let mx = 0;
+    data.topTheories.forEach(th => {
+      data.topicList.forEach(tp => { const c = (data.matrix[th.name] && data.matrix[th.name][tp]) || 0; if (c > mx) mx = c; });
+    });
+    return mx;
+  }, [data]);
+
+  const showTip = (e, theory, topic, count, ids) => {
+    const samplePapers = ids ? (allPapers || papers).filter(p => ids.includes(p.id)).slice(0, 3) : [];
+    setTooltip({ x: e.clientX + 12, y: e.clientY - 10, theory, topic, count, samplePapers });
+  };
+
+  return (
+    <div className="heatmap-wrap">
+      <div className="heatmap-title">Theory &times; Topic Domain Heatmap</div>
+      <div className="heatmap-subtitle">Top 20 theories by frequency across {data.topicList.length} topic domains. Cell color indicates paper count (log-scaled).</div>
+      <table className="heatmap-table">
+        <thead>
+          <tr>
+            <th className="row-header" style={{textAlign:'left',fontSize:10,color:'#bbb'}}>Theory \ Topic</th>
+            {data.topicList.map(tp => <th key={tp} style={{fontSize:9,maxWidth:70,overflow:'hidden',textOverflow:'ellipsis'}} title={tp}>{tp.length > 18 ? tp.slice(0,16)+'..' : tp}</th>)}
+            <th style={{fontSize:9,color:'#bbb'}}>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.topTheories.map(th => (
+            <tr key={th.name}>
+              <th className="row-header" title={th.name}>{th.name.length > 30 ? th.name.slice(0,28)+'..' : th.name}</th>
+              {data.topicList.map(tp => {
+                const c = (data.matrix[th.name] && data.matrix[th.name][tp]) || 0;
+                const ids = data.paperIds[th.name] && data.paperIds[th.name][tp];
+                return (
+                  <td key={tp}>
+                    <div className={`heatmap-cell${c===0?' zero':''}`}
+                      style={{background: c > 0 ? heatColor(c, maxCount) : undefined, color: c > 0 && c > maxCount * 0.3 ? '#fff' : (c > 0 ? '#5B4A8A' : undefined)}}
+                      onMouseEnter={e => showTip(e, th.name, tp, c, ids)}
+                      onMouseLeave={() => setTooltip(null)}>
+                      {c > 0 ? c : '\u00B7'}
+                    </div>
+                  </td>
+                );
+              })}
+              <td style={{fontSize:11,fontWeight:500,color:'#1A8917',textAlign:'center'}}>{th.count}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="heatmap-legend">
+        <span>Fewer papers</span>
+        <div className="heatmap-legend-bar"></div>
+        <span>More papers</span>
+      </div>
+      {tooltip && <div className="heatmap-tooltip" style={{left:tooltip.x, top:tooltip.y}}>
+        <strong>{tooltip.theory}</strong>
+        <div>&times; {tooltip.topic}</div>
+        <div style={{margin:'4px 0'}}><span className="tt-count">{tooltip.count} paper{tooltip.count!==1?'s':''}</span></div>
+        {tooltip.samplePapers.length > 0 && <div className="tt-papers">
+          {tooltip.samplePapers.map((p,i) => <div key={i}>&bull; {p.title} ({p.year})</div>)}
+          {tooltip.count > 3 && <div style={{color:'#aaa',marginTop:2}}>+{tooltip.count - 3} more</div>}
+        </div>}
+      </div>}
+    </div>
+  );
+}
+
+/* ===== Variable Relationship Map Component ===== */
+function VariableRelationshipMap({ papers, allPapers }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedTerm, setDebouncedTerm] = useState('');
+  const [expandedPath, setExpandedPath] = useState(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedTerm(searchTerm), 300);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  const matchedPapers = useMemo(() => fuzzyMatchPapers(debouncedTerm, papers), [debouncedTerm, papers]);
+  const pathways = useMemo(() => extractPathways(matchedPapers), [matchedPapers]);
+
+  return (
+    <div className="varmap-container">
+      <div className="heatmap-title">Variable Relationship Map</div>
+      <div className="heatmap-subtitle">Search for a concept to see all studied IV &rarr; DV pathways with mediators and moderators.</div>
+      <div className="varmap-search">
+        <input className="varmap-input" type="text" placeholder='Search a concept (e.g., "ADHD", "firm performance", "self-efficacy")' value={searchTerm} onChange={e => { setSearchTerm(e.target.value); setExpandedPath(null); }} />
+      </div>
+      {!debouncedTerm && <div className="varmap-hint">Enter a search term to explore variable relationships across {papers.length.toLocaleString()} papers. The search matches across titles, abstracts, variables, theories, findings, and tags.</div>}
+      {debouncedTerm && <div className="varmap-stats">
+        Found <strong>{matchedPapers.length}</strong> paper{matchedPapers.length!==1?'s':''} matching &ldquo;{debouncedTerm}&rdquo; with <strong>{pathways.length}</strong> unique IV &rarr; DV pathway{pathways.length!==1?'s':''}
+        {pathways.length >= 50 && <span> (showing top 50 by frequency)</span>}
+      </div>}
+      {pathways.length > 0 && <div className="pathway-list">
+        {pathways.map((pw, i) => (
+          <div key={i} className="pathway-card">
+            <div className="pathway-arrow">
+              <span className="pathway-iv">{pw.iv}</span>
+              <span className="pathway-arrow-icon">&rarr;</span>
+              <span className="pathway-dv">{pw.dv}</span>
+              <span className="pathway-count">{pw.count} paper{pw.count!==1?'s':''}</span>
+            </div>
+            {pw.meds.length > 0 && <div className="pathway-meta">Mediated by: <span>{pw.meds.join(', ')}</span></div>}
+            {pw.mods.length > 0 && <div className="pathway-meta">Moderated by: <span>{pw.mods.join(', ')}</span></div>}
+            <div className="pathway-papers-toggle" onClick={() => setExpandedPath(expandedPath === i ? null : i)}>
+              {expandedPath === i ? '\u25BE Hide' : '\u25B8 Show'} papers
+            </div>
+            {expandedPath === i && <div className="pathway-papers">
+              {pw.papers.map((p, j) => (
+                <div key={j} className="pathway-paper-item">
+                  <strong>{p.title}</strong><br/>
+                  <span style={{color:'#999'}}>{p.authors} &middot; {p.year} &middot; {p.journal}</span>
+                </div>
+              ))}
+            </div>}
+          </div>
+        ))}
+      </div>}
+      {debouncedTerm && matchedPapers.length === 0 && <div style={{textAlign:'center',color:'#ccc',padding:40,fontSize:13}}>No papers found matching &ldquo;{debouncedTerm}&rdquo;</div>}
+      {debouncedTerm && matchedPapers.length > 0 && pathways.length === 0 && <div style={{textAlign:'center',color:'#ccc',padding:40,fontSize:13}}>Papers found but no IV &rarr; DV pathways extracted. The matching papers may not have structured variable data.</div>}
+    </div>
+  );
+}
+
+/* ===== Method × Topic Heatmap Component ===== */
+function buildDesignTopicMatrix(papers) {
+  const designSet = new Set();
+  papers.forEach(p => { if (p.design) splitSemi(p.design).forEach(d => designSet.add(d)); });
+  const designs = [...designSet].sort();
+  const topicSet = new Set();
+  papers.forEach(p => { if (p.tpL1) splitSemi(p.tpL1).forEach(t => topicSet.add(t)); });
+  const topics = [...topicSet].sort();
+  const counts = {};
+  const pIds = {};
+  designs.forEach(d => { counts[d] = {}; pIds[d] = {}; topics.forEach(t => { counts[d][t] = 0; pIds[d][t] = []; }); });
+  papers.forEach(p => {
+    if (p.design && p.tpL1) {
+      const dList = splitSemi(p.design);
+      const tList = splitSemi(p.tpL1);
+      dList.forEach(d => {
+        if (!counts[d]) return;
+        tList.forEach(t => { if (counts[d][t] !== undefined) { counts[d][t]++; pIds[d][t].push(p.id); } });
+      });
+    }
+  });
+  /* Sort designs by total count descending for better readability */
+  const designCounts = designs.map(d => ({ name: d, count: topics.reduce((sum, t) => sum + counts[d][t], 0) }));
+  designCounts.sort((a, b) => b.count - a.count);
+  return { designs: designCounts.map(d => d.name), designCounts, topics, counts, paperIds: pIds };
+}
+
+function MethodTopicHeatmap({ papers, allPapers }) {
+  const data = useMemo(() => buildDesignTopicMatrix(papers), [papers]);
+  const [tooltip, setTooltip] = useState(null);
+
+  const maxCount = useMemo(() => {
+    let mx = 0;
+    data.designs.forEach(d => {
+      data.topics.forEach(t => { const c = data.counts[d][t]; if (c > mx) mx = c; });
+    });
+    return mx;
+  }, [data]);
+
+  const showTip = (e, design, topic, count, ids) => {
+    const samplePapers = ids ? (allPapers || papers).filter(p => ids.includes(p.id)).slice(0, 3) : [];
+    setTooltip({ x: e.clientX + 12, y: e.clientY - 10, design, topic, count, samplePapers });
+  };
+
+  return (
+    <div className="heatmap-wrap">
+      <div className="heatmap-title">Method Design &times; Topic Domain Heatmap</div>
+      <div className="heatmap-subtitle">{data.designs.length} method designs across {data.topics.length} topic domains. Cell color indicates paper count (log-scaled).</div>
+      <table className="heatmap-table">
+        <thead>
+          <tr>
+            <th className="row-header" style={{textAlign:'left',fontSize:10,color:'#bbb'}}>Design \ Topic</th>
+            {data.topics.map(tp => <th key={tp} style={{fontSize:9,maxWidth:70,overflow:'hidden',textOverflow:'ellipsis'}} title={tp}>{tp.length > 18 ? tp.slice(0,16)+'..' : tp}</th>)}
+            <th style={{fontSize:9,color:'#bbb'}}>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.designs.map(d => {
+            const total = data.topics.reduce((sum, t) => sum + data.counts[d][t], 0);
+            return (
+            <tr key={d}>
+              <th className="row-header" title={d}>{d.length > 30 ? d.slice(0,28)+'..' : d}</th>
+              {data.topics.map(tp => {
+                const c = data.counts[d][tp];
+                const ids = data.paperIds[d] && data.paperIds[d][tp];
+                return (
+                  <td key={tp}>
+                    <div className={`heatmap-cell${c===0?' zero':''}`}
+                      style={{background: c > 0 ? heatColor(c, maxCount) : undefined, color: c > 0 && c > maxCount * 0.3 ? '#fff' : (c > 0 ? '#5B4A8A' : undefined)}}
+                      onMouseEnter={e => showTip(e, d, tp, c, ids)}
+                      onMouseLeave={() => setTooltip(null)}>
+                      {c > 0 ? c : '\u00B7'}
+                    </div>
+                  </td>
+                );
+              })}
+              <td style={{fontSize:11,fontWeight:500,color:'#1A8917',textAlign:'center'}}>{total}</td>
+            </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="heatmap-legend">
+        <span>Fewer papers</span>
+        <div className="heatmap-legend-bar"></div>
+        <span>More papers</span>
+      </div>
+      {tooltip && <div className="heatmap-tooltip" style={{left:tooltip.x, top:tooltip.y}}>
+        <strong>{tooltip.design}</strong>
+        <div>&times; {tooltip.topic}</div>
+        <div style={{margin:'4px 0'}}><span className="tt-count">{tooltip.count} paper{tooltip.count!==1?'s':''}</span></div>
+        {tooltip.samplePapers.length > 0 && <div className="tt-papers">
+          {tooltip.samplePapers.map((p,i) => <div key={i}>&bull; {p.title} ({p.year})</div>)}
+          {tooltip.count > 3 && <div style={{color:'#aaa',marginTop:2}}>+{tooltip.count - 3} more</div>}
+        </div>}
+      </div>}
+    </div>
+  );
+}
+
+/* ===== Journal Comparison Component ===== */
+function JournalComparison({ papers, darkMode }) {
+  const JOURNALS = ['ETP', 'JBV', 'SEJ'];
+  const cmpRefs = { theory: useRef(), topic: useRef(), timeline: useRef(), method_etp: useRef(), method_jbv: useRef(), method_sej: useRef() };
+  const cmpInst = useRef({});
+
+  /* Aggregate data per journal */
+  const jData = useMemo(() => {
+    const d = {};
+    JOURNALS.forEach(j => {
+      const jp = papers.filter(p => p.journal === j);
+      const theories = {}, methods = {}, topics = {}, countries = {}, byYear = {};
+      let empiricalCount = 0;
+      jp.forEach(p => {
+        splitSemi(p.tName).forEach(t => { theories[t] = (theories[t] || 0) + 1; });
+        splitSemi(p.type).forEach(m => { methods[m] = (methods[m] || 0) + 1; });
+        splitSemi(p.tpL1).forEach(t => { topics[t] = (topics[t] || 0) + 1; });
+        splitSemi(p.country).forEach(c => { countries[c] = (countries[c] || 0) + 1; });
+        if (p.year) byYear[p.year] = (byYear[p.year] || 0) + 1;
+        if (p.type && (p.type.includes('Empirical') || p.type.includes('Mixed'))) empiricalCount++;
+      });
+      const yearRange = jp.filter(p => p.year).map(p => p.year);
+      d[j] = {
+        count: jp.length,
+        theories: Object.entries(theories).sort((a, b) => b[1] - a[1]),
+        methods: Object.entries(methods).sort((a, b) => b[1] - a[1]),
+        topics: Object.entries(topics).sort((a, b) => b[1] - a[1]),
+        countries: Object.entries(countries).sort((a, b) => b[1] - a[1]).slice(0, 5),
+        byYear,
+        pctEmpirical: jp.length > 0 ? Math.round((empiricalCount / jp.length) * 100) : 0,
+        yearMin: yearRange.length ? Math.min(...yearRange) : '-',
+        yearMax: yearRange.length ? Math.max(...yearRange) : '-',
+      };
+    });
+    return d;
+  }, [papers]);
+
+  /* Render charts */
+  useEffect(() => {
+    Object.values(cmpInst.current).forEach(c => c?.destroy());
+    cmpInst.current = {};
+    if (!papers.length) return;
+
+    const dk = darkMode;
+    const gridC = dk ? '#333' : '#f5f5f5';
+    const tickC = dk ? '#aaa' : undefined;
+    const legC = dk ? '#ccc' : undefined;
+    const chartFont = { family: '-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif', size: 10 };
+
+    /* Theory comparison: grouped bar */
+    if (cmpRefs.theory.current) {
+      const allTheories = {};
+      JOURNALS.forEach(j => jData[j].theories.slice(0, 8).forEach(([t]) => { allTheories[t] = true; }));
+      const labels = Object.keys(allTheories).slice(0, 12);
+      cmpInst.current.theory = new Chart(cmpRefs.theory.current, {
+        type: 'bar', data: {
+          labels: labels.map(l => l.length > 30 ? l.slice(0, 28) + '...' : l),
+          datasets: JOURNALS.map(j => ({
+            label: j, data: labels.map(t => { const e = jData[j].theories.find(([k]) => k === t); return e ? e[1] : 0; }),
+            backgroundColor: JCOL[j], barPercentage: 0.8, categoryPercentage: 0.7
+          }))
+        }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+          plugins: { legend: { position: 'top', labels: { color:legC, boxWidth: 8, font: chartFont } } },
+          scales: { x: { grid: { color: gridC }, ticks: { color:tickC, font: chartFont } }, y: { grid: { display: false }, ticks: { color:tickC, font: chartFont } } }
+        }
+      });
+    }
+
+    /* Topic comparison: grouped bar */
+    if (cmpRefs.topic.current) {
+      const allTopics = {};
+      JOURNALS.forEach(j => jData[j].topics.slice(0, 8).forEach(([t]) => { allTopics[t] = true; }));
+      const labels = Object.keys(allTopics).slice(0, 10);
+      cmpInst.current.topic = new Chart(cmpRefs.topic.current, {
+        type: 'bar', data: {
+          labels: labels.map(l => l.length > 30 ? l.slice(0, 28) + '...' : l),
+          datasets: JOURNALS.map(j => ({
+            label: j, data: labels.map(t => { const e = jData[j].topics.find(([k]) => k === t); return e ? e[1] : 0; }),
+            backgroundColor: JCOL[j], barPercentage: 0.8, categoryPercentage: 0.7
+          }))
+        }, options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+          plugins: { legend: { position: 'top', labels: { color:legC, boxWidth: 8, font: chartFont } } },
+          scales: { x: { grid: { color: gridC }, ticks: { color:tickC, font: chartFont } }, y: { grid: { display: false }, ticks: { color:tickC, font: chartFont } } }
+        }
+      });
+    }
+
+    /* Timeline: line chart */
+    if (cmpRefs.timeline.current) {
+      const allYears = new Set();
+      JOURNALS.forEach(j => Object.keys(jData[j].byYear).forEach(y => allYears.add(y)));
+      const years = [...allYears].sort();
+      cmpInst.current.timeline = new Chart(cmpRefs.timeline.current, {
+        type: 'line', data: {
+          labels: years,
+          datasets: JOURNALS.map(j => ({
+            label: j, data: years.map(y => jData[j].byYear[y] || 0),
+            borderColor: JCOL[j], backgroundColor: JCOL[j] + '20', tension: 0.3, pointRadius: 2, borderWidth: 2, fill: false
+          }))
+        }, options: { responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: 'top', labels: { color:legC, boxWidth: 8, font: chartFont } } },
+          scales: { x: { grid: { display: false }, ticks: { color:tickC, font: chartFont, maxTicksLimit: 20 } }, y: { beginAtZero: true, grid: { color: gridC }, ticks: { color:tickC, font: chartFont } } }
+        }
+      });
+    }
+
+    /* Method doughnut for each journal */
+    JOURNALS.forEach(j => {
+      const key = 'method_' + j.toLowerCase();
+      if (cmpRefs[key]?.current) {
+        const methods = jData[j].methods;
+        cmpInst.current[key] = new Chart(cmpRefs[key].current, {
+          type: 'doughnut', data: {
+            labels: methods.map(([m]) => m),
+            datasets: [{ data: methods.map(([, c]) => c), backgroundColor: ['#1A8917', '#D4A13A', '#6B5B95', '#4A90E2', '#E8855A', '#2BC5D6', '#FF6B6B', '#999'] }]
+          }, options: { responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { color:legC, font: chartFont, boxWidth: 8 } } }
+          }
+        });
+      }
+    });
+
+    return () => { Object.values(cmpInst.current).forEach(c => c?.destroy()); };
+  }, [jData, papers, darkMode]);
+
+  return (
+    <div>
+      {/* Summary stats */}
+      <div className="comparison-summary">
+        {JOURNALS.map(j => (
+          <div key={j} className="comparison-stat">
+            <div className="j-name" style={{color: JCOL[j]}}>{JFULL[j] || j}</div>
+            <div className="stat-row"><span>Papers</span><span className="stat-val">{jData[j].count.toLocaleString()}</span></div>
+            <div className="stat-row"><span>Years</span><span className="stat-val">{jData[j].yearMin}&ndash;{jData[j].yearMax}</span></div>
+            <div className="stat-row"><span>% Empirical</span><span className="stat-val">{jData[j].pctEmpirical}%</span></div>
+          </div>
+        ))}
+      </div>
+
+      <div className="comparison-grid">
+        {/* Timeline */}
+        <div className="comparison-card wide">
+          <div className="cl">Publications over time by journal</div>
+          <div className="ca"><canvas ref={cmpRefs.timeline}></canvas></div>
+        </div>
+
+        {/* Theory comparison */}
+        <div className="comparison-card">
+          <div className="cl">Top theories by journal</div>
+          <div className="ca" style={{height:320}}><canvas ref={cmpRefs.theory}></canvas></div>
+        </div>
+
+        {/* Topic comparison */}
+        <div className="comparison-card">
+          <div className="cl">Topic domains by journal</div>
+          <div className="ca" style={{height:320}}><canvas ref={cmpRefs.topic}></canvas></div>
+        </div>
+
+        {/* Method doughnuts */}
+        {JOURNALS.map(j => (
+          <div key={j} className="comparison-card">
+            <div className="cl" style={{color: JCOL[j]}}>{JFULL[j] || j} &mdash; Paper Types</div>
+            <div className="ca" style={{height:220}}><canvas ref={cmpRefs['method_' + j.toLowerCase()]}></canvas></div>
+          </div>
+        ))}
+
+        {/* Geographic footprint */}
+        <div className="comparison-card wide">
+          <div className="cl">Top countries by journal</div>
+          <table className="comparison-table">
+            <thead><tr><th></th>{JOURNALS.map(j => <th key={j} style={{color: JCOL[j]}}>{j}</th>)}</tr></thead>
+            <tbody>
+              {[0,1,2,3,4].map(i => (
+                <tr key={i}>
+                  <td style={{color:'#999',fontSize:10}}>#{i+1}</td>
+                  {JOURNALS.map(j => {
+                    const c = jData[j].countries[i];
+                    return <td key={j}>{c ? `${c[0]} (${c[1]})` : '-'}</td>;
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===== Card Component ===== */
+function Card({ p, q, hlTerms, open, toggle, bookmarked, onToggleBookmark, isActive, allPapers, showRelevance, maxScore }) {
+  const j = p.journal || 'ETP';
+  const [bionic, setBionic] = useState(false);
+  const [dyslexic, setDyslexic] = useState(false);
+  const relPct = (showRelevance && maxScore > 0 && p._bm25 > 0) ? Math.round((p._bm25 / maxScore) * 100) : 0;
+  const relColor = relPct >= 70 ? '#1A8917' : relPct >= 40 ? '#D4A13A' : '#ccc';
+  return (
+    <div className={`card${isActive?' active-card':''}`}>
+      <div className="ci" onClick={toggle}>
+        <div className="ct-row">
+          <div style={{flex:1}}>
+            <div className="ctitle">{hl(p.title, hlTerms)}</div>
+            <div className="cauth">
+              <span>{hl(p.authors, hlTerms)} &middot; {p.year}</span>
+              {showRelevance && relPct > 0 && <span className="relevance-badge" style={{color: relColor}}>
+                <span className="rel-bar"><span className="rel-fill" style={{width: relPct+'%', background: relColor}}></span></span>
+                {relPct}%
+              </span>}
+              <button className={`star-btn${bookmarked?' starred':''}`} title={bookmarked?"Remove from collection":"Save to collection"} onClick={e=>{e.stopPropagation();onToggleBookmark(p.id);}}>
+                {bookmarked ? '\u2605' : '\u2606'}
+              </button>
+            </div>
+          </div>
+          <span className={`cj cj-${j}`}>{j}</span>
+        </div>
+        {!open && p.abstract && <div className="csnip">{p.abstract}</div>}
+      </div>
+      {open && <div className="details">
+        <div className="d-chips">
+          <span className="chip chip-j" style={{background:JCOL[j]+'18',color:JCOL[j]}}>{JFULL[j]||j}</span>
+          <span className="chip">{p.year}</span>
+          {p.type && <span className="chip">{p.type}</span>}
+          {p.design && <span className="chip">{p.design.split(';')[0].trim()}</span>}
+          {p.country && p.country!=='N/A' && p.country!=='Not Specified' && <span className="chip">{p.country.split(';')[0].trim()}</span>}
+          <div className="reading-toggles">
+            <label className="a11y-toggle" title="Bionic Reading highlights the beginning of each word to guide your eyes faster through text">
+              <input type="checkbox" checked={bionic} onChange={e=>setBionic(e.target.checked)} />
+              <span className="a11y-switch"></span>
+              Bionic
+            </label>
+            <label className="a11y-toggle" title="Switches to OpenDyslexic font with increased spacing for easier reading">
+              <input type="checkbox" checked={dyslexic} onChange={e=>setDyslexic(e.target.checked)} />
+              <span className="a11y-switch"></span>
+              Dyslexia
+            </label>
+          </div>
+        </div>
+        <div className="d-group g-research">
+          <div className="d-group-title">Research Content</div>
+          <DItem label="Abstract" bionic={bionic} dyslexic={dyslexic}>{p.abstract && hl(p.abstract, hlTerms)}</DItem>
+          <DItem label="Research Question" bionic={bionic} dyslexic={dyslexic}>{p.rq && hl(p.rq, hlTerms)}</DItem>
+          <DItem label="Research Gap" bionic={bionic} dyslexic={dyslexic}>{p.gaps}</DItem>
+          <DItem label="Key Findings" bionic={bionic} dyslexic={dyslexic}>{p.findings && hl(p.findings, hlTerms)}</DItem>
+          <DItem label="Future Directions" bionic={bionic} dyslexic={dyslexic}>{p.future}</DItem>
+        </div>
+        {(p.tName || p.design || p.dsType) && <div className="d-group g-framework">
+          <div className="d-group-title">Framework & Method</div>
+          <DItem label="Theories" bionic={bionic} dyslexic={dyslexic}>{p.tName && hl(p.tName, hlTerms)}</DItem>
+          {p.theory_raw && p.theory_raw !== p.tName && <DItem label="Theory Detail" bionic={bionic} dyslexic={dyslexic}>{hl(p.theory_raw, hlTerms)}</DItem>}
+          <DItem label="Method">{p.design && [p.type, p.design, p.technique].filter(Boolean).join(' \u203A ')}</DItem>
+          <DItem label="Data Source">{p.dsType && (p.dsType + (p.dsNamed ? ` \u2014 ${p.dsNamed}` : ''))}</DItem>
+          {p.sample_raw && <DItem label="Sample" bionic={bionic} dyslexic={dyslexic}>{hl(p.sample_raw, hlTerms)}</DItem>}
+          <DItem label="Country">{p.country && p.country!=='N/A' && p.country!=='Not Specified' && (p.country + (p.region ? ` \u2014 ${p.region}` : ''))}</DItem>
+        </div>}
+        {(p.iv || p.dv) && <div className="d-group g-variables">
+          <div className="d-group-title">Variables</div>
+          <DItem label="Independent" bionic={bionic} dyslexic={dyslexic}>{p.iv}</DItem>
+          <DItem label="Dependent" bionic={bionic} dyslexic={dyslexic}>{p.dv}</DItem>
+          <DItem label="Mediators" bionic={bionic} dyslexic={dyslexic}>{p.med}</DItem>
+          <DItem label="Moderators" bionic={bionic} dyslexic={dyslexic}>{p.mod}</DItem>
+          {p.controls && <DItem label="Controls" bionic={bionic} dyslexic={dyslexic}>{hl(p.controls, hlTerms)}</DItem>}
+        </div>}
+        {p.notes && <div className="d-group g-notes">
+          <div className="d-group-title">Connections & Notes</div>
+          <DItem label="" bionic={bionic} dyslexic={dyslexic}>{p.notes}</DItem>
+        </div>}
+        <RelatedPapers paper={p} allPapers={allPapers} />
+      </div>}
+    </div>
+  );
+}
+
+/* ===== Toast Component ===== */
+function Toast({ message }) {
+  if (!message) return null;
+  return <div className="toast">{message}</div>;
+}
+
+/* ===== Main App ===== */
+function App() {
+  const [papers, setPapers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState('search');
+  const [analyticsTab, setAnalyticsTab] = useState('overview'); /* overview | explorer | comparison */
+  const [explorerTab, setExplorerTab] = useState('heatmap'); /* heatmap | methods | variables */
+  const [query, setQuery] = useState('');
+  const [filters, setFilters] = useState({journal:[],type:[],design:[],technique:[],tDisc:[],tName:[],tpL1:[],tpL2:[],continent:[],dsType:[],dsNamed:[]});
+  const [yearMin, setYearMin] = useState('');
+  const [yearMax, setYearMax] = useState('');
+  const [sortBy, setSortBy] = useState('relevance');
+  const [page, setPage] = useState(0);
+  const [expanded, setExpanded] = useState(new Set());
+  const [bookmarks, setBookmarks] = useState(loadBookmarks);
+  const [showBookmarks, setShowBookmarks] = useState(false);
+  const [toast, setToast] = useState('');
+  const [exportOpen, setExportOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const [showSettings, setShowSettings] = useState(false);
+  const [aiSettings, setAISettings] = useState(loadAPISettings);
+  const [showAI, setShowAI] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(IS_ADMIN_INIT);
+  const [darkMode, setDarkMode] = useState(() => { try { return localStorage.getItem('kb_dark') === '1'; } catch(e) { return false; } });
+  const [showHelp, setShowHelp] = useState(() => { try { return !localStorage.getItem('kb_help_seen'); } catch(e) { return true; } });
+  const dismissHelp = () => { setShowHelp(false); try { localStorage.setItem('kb_help_seen', '1'); } catch(e) {} };
+  useEffect(() => { document.body.classList.toggle('dark', darkMode); try { localStorage.setItem('kb_dark', darkMode ? '1' : '0'); } catch(e) {} }, [darkMode]);
+  const perPage = 20;
+  const searchRef = useRef();
+  const exportRef = useRef();
+
+  const cRefs = { year:useRef(), journal:useRef(), method:useRef(), theory:useRef(), topic:useRef(), country:useRef() };
+  const cInst = useRef({});
+
+  useEffect(() => {
+    /* Load data: try embedded (production) first, then fetch external JSON (requires HTTP server) */
+    if (window.__ERKB_DATA) { setPapers(window.__ERKB_DATA); setLoading(false); return; }
+    fetch('data.json').then(r=>r.json()).then(d=>{setPapers(d);setLoading(false);}).catch(()=>{
+      setLoading(false);
+      if (window.location.protocol === 'file:') {
+        alert('Cannot load data.json when opening as a local file.\\n\\nTo preview locally, run this in the 4_app folder:\\n  python3 -m http.server 8080\\n\\nThen open http://localhost:8080 in your browser.');
+      }
+    });
+  }, []);
+
+  /* BM25 corpus statistics — computed once when papers load */
+  const corpusStats = useMemo(() => papers.length ? buildCorpusStats(papers) : null, [papers]);
+
+  /* Close export menu on outside click */
+  useEffect(() => { const h=e=>{if(exportRef.current&&!exportRef.current.contains(e.target))setExportOpen(false);}; document.addEventListener('mousedown',h); return()=>document.removeEventListener('mousedown',h); }, []);
+
+  /* Show toast with auto-dismiss */
+  const showToast = useCallback((msg) => { setToast(msg); setTimeout(()=>setToast(''),2000); }, []);
+
+  /* Toggle bookmark */
+  const toggleBookmark = useCallback((id) => {
+    setBookmarks(prev => {
+      const next = prev.includes(id) ? prev.filter(b=>b!==id) : [...prev, id];
+      saveBookmarks(next);
+      showToast(next.includes(id) ? 'Added to collection' : 'Removed from collection');
+      return next;
+    });
+  }, [showToast]);
+
+  /* Parse query for advanced search */
+  const parsedQuery = useMemo(() => parseSearchQuery(query), [query]);
+  const hlTerms = useMemo(() => extractTerms(parsedQuery), [parsedQuery]);
+
+  const opts = useMemo(() => {
+    if (!papers.length) return {};
+    const c=(k,s)=>{const m=new Set();papers.forEach(p=>{const v=p[k];if(v){if(s)v.split(';').forEach(x=>{const t=x.trim();if(t&&t!=='N/A'&&t!=='Not Specified')m.add(t);});else if(v!=='N/A'&&v!=='Not Specified')m.add(v);}});return[...m].sort();};
+    return {
+      journal:c('journal'),
+      type:c('type',1), design:c('design',1), technique:c('technique',1),
+      tDisc:c('tDisc',1), tName:c('tName',1),
+      tpL1:c('tpL1',1), tpL2:c('tpL2',1),
+      continent:c('continent',1), dsType:c('dsType',1), dsNamed:c('dsNamed',1)
+    };
+  }, [papers]);
+
+  const filtered = useMemo(() => {
+    if (!papers.length) return [];
+    let r = papers;
+    if (showBookmarks) r = r.filter(p => bookmarks.includes(p.id));
+    if (parsedQuery) {
+      r = r.filter(p => {
+        const text = [p.title,p.authors,p.abstract,p.rq,p.findings,p.tName,p.tags,p.gaps,p.iv,p.dv,p.notes,p.dsNamed,p.sample_raw,p.controls].filter(Boolean).join(' ');
+        return matchesPaper(parsedQuery, text);
+      });
+    }
+    const f = filters;
+    if(f.journal.length) r=r.filter(p=>f.journal.includes(p.journal));
+    if(f.type.length) r=r.filter(p=>p.type&&f.type.some(m=>p.type.includes(m)));
+    if(f.design.length) r=r.filter(p=>p.design&&f.design.some(m=>p.design.includes(m)));
+    if(f.technique.length) r=r.filter(p=>p.technique&&f.technique.some(m=>p.technique.includes(m)));
+    if(f.tDisc.length) r=r.filter(p=>p.tDisc&&f.tDisc.some(t=>p.tDisc.includes(t)));
+    if(f.tName.length) r=r.filter(p=>p.tName&&f.tName.some(t=>p.tName.includes(t)));
+    if(f.tpL1.length) r=r.filter(p=>p.tpL1&&f.tpL1.some(t=>p.tpL1.includes(t)));
+    if(f.tpL2.length) r=r.filter(p=>p.tpL2&&f.tpL2.some(t=>p.tpL2.includes(t)));
+    if(f.continent.length) r=r.filter(p=>p.continent&&f.continent.some(c=>p.continent.includes(c)));
+    if(f.dsType.length) r=r.filter(p=>p.dsType&&f.dsType.some(d=>p.dsType.includes(d)));
+    if(f.dsNamed.length) r=r.filter(p=>p.dsNamed&&f.dsNamed.some(d=>p.dsNamed.includes(d)));
+    if(yearMin) r=r.filter(p=>p.year>=parseInt(yearMin));
+    if(yearMax) r=r.filter(p=>p.year<=parseInt(yearMax));
+    /* BM25 relevance scoring — score all filtered papers when there's a query */
+    if (parsedQuery && corpusStats) {
+      const qTerms = extractTerms(parsedQuery);
+      r = scoreAllPapers(r, qTerms, corpusStats);
+    }
+    if(sortBy==='relevance' && parsedQuery) r=[...r].sort((a,b)=>(b._bm25||0)-(a._bm25||0));
+    else if(sortBy==='year_desc') r=[...r].sort((a,b)=>(b.year||0)-(a.year||0));
+    else if(sortBy==='year_asc') r=[...r].sort((a,b)=>(a.year||0)-(b.year||0));
+    else if(sortBy==='title') r=[...r].sort((a,b)=>(a.title||'').localeCompare(b.title||''));
+    else if(sortBy==='author') r=[...r].sort((a,b)=>(a.authors||'').localeCompare(b.authors||''));
+    else if(sortBy==='journal') r=[...r].sort((a,b)=>(a.journal||'').localeCompare(b.journal||'')||(b.year||0)-(a.year||0));
+    return r;
+  }, [papers, parsedQuery, filters, yearMin, yearMax, sortBy, showBookmarks, bookmarks, corpusStats]);
+
+  useEffect(()=>{setPage(0);setExpanded(new Set());setActiveIdx(-1);setShowAI(false);},[query,filters,yearMin,yearMax,sortBy,showBookmarks]);
+
+  const tp = Math.ceil(filtered.length/perPage);
+  const pr = filtered.slice(page*perPage,(page+1)*perPage);
+  const an = Object.values(filters).reduce((s,a)=>s+a.length,0)+(yearMin?1:0)+(yearMax?1:0);
+  const clear=()=>{setFilters({journal:[],type:[],design:[],technique:[],tDisc:[],tName:[],tpL1:[],tpL2:[],continent:[],dsType:[],dsNamed:[]});setYearMin('');setYearMax('');setQuery('');};
+
+  /* ===== Keyboard shortcuts ===== */
+  useEffect(() => {
+    const handler = (e) => {
+      const tag = e.target.tagName;
+      const isInput = tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT';
+      if (e.key==='/' && !isInput) { e.preventDefault(); searchRef.current?.focus(); return; }
+      /* Ctrl+Shift+E toggles admin mode with password */
+      if (e.key==='E' && e.ctrlKey && e.shiftKey) {
+        e.preventDefault();
+        if (isAdmin) { try{localStorage.removeItem('erkb_admin');}catch{} setIsAdmin(false); showToast('Admin mode off'); return; }
+        const pw = prompt('Enter admin password:');
+        if (pw) { verifyAdminPw(pw).then(ok => { if(ok){try{localStorage.setItem('erkb_admin','1');}catch{} setIsAdmin(true); showToast('Admin mode activated');} else {showToast('Incorrect password');} }); }
+        return;
+      }
+      if (e.key==='Escape') {
+        if (showAI) { setShowAI(false); return; }
+        if (showSettings) { setShowSettings(false); return; }
+        if (expanded.size>0) { setExpanded(new Set()); return; }
+        if (document.activeElement===searchRef.current) { searchRef.current.blur(); return; }
+        if (showBookmarks) { setShowBookmarks(false); return; }
+      }
+      if (!isInput && view==='search') {
+        if (e.key==='ArrowDown' || e.key==='j') { e.preventDefault(); setActiveIdx(prev => Math.min(prev+1, pr.length-1)); }
+        if (e.key==='ArrowUp' || e.key==='k') { e.preventDefault(); setActiveIdx(prev => Math.max(prev-1, -1)); }
+        if (e.key==='Enter' && activeIdx>=0 && activeIdx<pr.length) { e.preventDefault(); const gi=page*perPage+activeIdx; setExpanded(prev=>{const next=new Set(prev);if(next.has(gi))next.delete(gi);else next.add(gi);return next;}); }
+        if (e.key==='s' && activeIdx>=0 && activeIdx<pr.length) { e.preventDefault(); toggleBookmark(pr[activeIdx].id); }
+      }
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [expanded, view, activeIdx, pr, page, perPage, showBookmarks, showSettings, showAI, toggleBookmark]);
+
+  useEffect(() => { if (activeIdx>=0) { const cards=document.querySelectorAll('.card'); if(cards[activeIdx]) cards[activeIdx].scrollIntoView({block:'nearest',behavior:'smooth'}); } }, [activeIdx]);
+  useEffect(() => { setActiveIdx(-1); }, [page]);
+
+  /* ===== Charts ===== */
+  useEffect(() => {
+    if(view!=='analytics'||analyticsTab!=='overview'||!filtered.length) return;
+    Object.values(cInst.current).forEach(c=>c?.destroy());
+    cInst.current={};
+    const dk = darkMode;
+    const gridC = dk ? '#333' : '#f5f5f5';
+    const tickC = dk ? '#aaa' : undefined;
+    const legC = dk ? '#ccc' : undefined;
+    const sf = '-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif';
+    const chartOpts = { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{color:legC,font:{family:sf,size:11}}}}, scales:{x:{grid:{color:gridC},ticks:{color:tickC,font:{family:sf,size:10}}},y:{grid:{color:gridC},ticks:{color:tickC,font:{family:sf,size:10}}}} };
+    if(cRefs.year.current){
+      const yj={};
+      filtered.forEach(p=>{if(p.year){if(!yj[p.year])yj[p.year]={};yj[p.year][p.journal]=(yj[p.year][p.journal]||0)+1;}});
+      const yrs=Object.keys(yj).sort();
+      cInst.current.year=new Chart(cRefs.year.current,{type:'bar',data:{labels:yrs,datasets:['ETP','JBV','SEJ'].map(j=>({label:j,data:yrs.map(y=>yj[y]?.[j]||0),backgroundColor:JCOL[j],stack:'s'}))},options:{...chartOpts,plugins:{legend:{position:'top',labels:{color:legC,boxWidth:8,font:{family:sf,size:11}}}},scales:{x:{stacked:true,grid:{display:false},ticks:{color:tickC,font:{family:sf,size:9}}},y:{stacked:true,beginAtZero:true,grid:{color:gridC},ticks:{color:tickC}}}}});
+    }
+    if(cRefs.journal.current){
+      const jc={};filtered.forEach(p=>{jc[p.journal]=(jc[p.journal]||0)+1;});const ls=Object.keys(jc).sort((a,b)=>jc[b]-jc[a]);
+      cInst.current.journal=new Chart(cRefs.journal.current,{type:'doughnut',data:{labels:ls.map(l=>JFULL[l]||l),datasets:[{data:ls.map(l=>jc[l]),backgroundColor:ls.map(l=>JCOL[l]||'#ccc')}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{color:legC,font:{family:sf,size:11}}}}}});
+    }
+    const bar=(ref,key,split,color,max)=>{
+      if(!ref.current)return;const cnt={};
+      filtered.forEach(p=>{const v=p[key];if(v){if(split)v.split(';').forEach(t=>{const k=t.trim();if(k&&k!=='N/A'&&k!=='Not Specified')cnt[k]=(cnt[k]||0)+1;});else cnt[v]=(cnt[v]||0)+1;}});
+      const ls=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).slice(0,max||10);
+      cInst.current[key]=new Chart(ref.current,{type:'bar',data:{labels:ls.map(l=>l.length>38?l.slice(0,35)+'...':l),datasets:[{data:ls.map(l=>cnt[l]),backgroundColor:color}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:gridC},ticks:{color:tickC,font:{family:sf,size:10}}},y:{grid:{display:false},ticks:{color:tickC,font:{family:sf,size:10}}}}}});
+    };
+    bar(cRefs.method,'type',true,'#1A8917');
+    bar(cRefs.theory,'tName',true,'#D4A13A',15);
+    bar(cRefs.topic,'tpL1',true,'#6B5B95');
+    bar(cRefs.country,'country',true,'#4A90E2',15);
+    return()=>{Object.values(cInst.current).forEach(c=>c?.destroy());};
+  }, [view, analyticsTab, filtered, darkMode]);
+
+  const nTheories = useMemo(()=>{const s=new Set();papers.forEach(p=>{if(p.tName)p.tName.split(';').forEach(t=>{const k=t.trim();if(k)s.add(k);});});return s.size;},[papers]);
+
+  if(loading) return <div className="loading"><div className="spinner"></div><p>Loading papers...</p></div>;
+
+  const sparkleIcon = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{width:14,height:14}}><path d="M12 2l2.09 6.26L20.18 10l-6.09 1.74L12 18l-2.09-6.26L3.82 10l6.09-1.74z"/></svg>;
+  const gearIcon = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{width:16,height:16}}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.32 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>;
+
+  return (
+    <div>
+      <div className="header">
+        <h1>Entrepreneurship Research Knowledge Base</h1>
+        <div className="header-right">
+          <div className="journal-counts">
+            <span><span className="jdot jdot-etp"></span>ETP {papers.filter(p=>p.journal==='ETP').length.toLocaleString()}</span>
+            <span><span className="jdot jdot-jbv"></span>JBV {papers.filter(p=>p.journal==='JBV').length.toLocaleString()}</span>
+            <span><span className="jdot jdot-sej"></span>SEJ {papers.filter(p=>p.journal==='SEJ').length.toLocaleString()}</span>
+          </div>
+          <button className="help-btn" title="User Guide" onClick={()=>setShowHelp(true)} style={{background:'none',border:'1px solid #E5E5E5',borderRadius:'50%',width:28,height:28,cursor:'pointer',fontSize:14,fontWeight:600,color:'#6B6B6B',display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.15s'}}>?</button>
+          <button className="dark-toggle" title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'} onClick={()=>setDarkMode(!darkMode)}>{darkMode ? '\u2600\uFE0F' : '\uD83C\uDF19'}</button>
+          <button className={`settings-btn${aiSettings?.apiKey?' has-key':''}`} title="AI Settings" onClick={()=>setShowSettings(true)}>{gearIcon}</button>
+          <div className="vtoggle">
+            <button className={`vbtn ${view==='search'&&!showBookmarks?'on':''}`} onClick={()=>{setView('search');setShowBookmarks(false);}}>Search</button>
+            <button className={`vbtn ${showBookmarks?'on':''}`} onClick={()=>{setView('search');setShowBookmarks(!showBookmarks);}}>
+              My Collection {bookmarks.length>0 && <span className="bcount">{bookmarks.length}</span>}
+            </button>
+            <button className={`vbtn ${view==='analytics'?'on':''}`} onClick={()=>{setView('analytics');setShowBookmarks(false);}}>Analytics</button>
+            <button className={`vbtn ${view==='wiki'?'on':''}`} onClick={()=>{setView('wiki');setShowBookmarks(false);}}>Wiki</button>
+            <button className={`vbtn ${view==='about'?'on':''}`} onClick={()=>{setView('about');setShowBookmarks(false);}}>About</button>
+          </div>
+        </div>
+      </div>
+
+      {view !== 'wiki' && view !== 'about' && <div className="search-bar">
+        <div className="search-col">
+          <input className="sinput" ref={searchRef} placeholder='Search papers, theories, authors, methods...' value={query} onChange={e=>setQuery(e.target.value)} />
+          <div className="search-tips">
+            Supports: <code>"exact phrase"</code> &middot; <code>term1 AND term2</code> &middot; <code>term1 OR term2</code> &middot; multiple words are AND'd
+          </div>
+        </div>
+        <div className="kbd-hint">Press <kbd>/</kbd> to search</div>
+      </div>}
+
+      {view !== 'wiki' && view !== 'about' && <div className="filters">
+        <Filter label="Journal" options={opts.journal||[]} selected={filters.journal} onChange={v=>setFilters({...filters,journal:v})} />
+        <span className="fsep"></span>
+        <Filter label="Paper Type" options={opts.type||[]} selected={filters.type} onChange={v=>setFilters({...filters,type:v})} descs={TYPE_NOTES} />
+        <Filter label="Design" options={opts.design||[]} selected={filters.design} onChange={v=>setFilters({...filters,design:v})} />
+        <Filter label="Technique" options={opts.technique||[]} selected={filters.technique} onChange={v=>setFilters({...filters,technique:v})} />
+        <span className="fsep"></span>
+        <Filter label="Theory" options={opts.tDisc||[]} selected={filters.tDisc} onChange={v=>setFilters({...filters,tDisc:v})} />
+        <Filter label="Theory (name)" options={opts.tName||[]} selected={filters.tName} onChange={v=>setFilters({...filters,tName:v})} />
+        <span className="fsep"></span>
+        <Filter label="Topic" options={opts.tpL1||[]} selected={filters.tpL1} onChange={v=>setFilters({...filters,tpL1:v})} />
+        <Filter label="Sub-topic" options={opts.tpL2||[]} selected={filters.tpL2} onChange={v=>setFilters({...filters,tpL2:v})} />
+        <span className="fsep"></span>
+        <Filter label="Continent" options={opts.continent||[]} selected={filters.continent} onChange={v=>setFilters({...filters,continent:v})} />
+        <Filter label="Data source" options={opts.dsType||[]} selected={filters.dsType} onChange={v=>setFilters({...filters,dsType:v})} />
+        <Filter label="Dataset" options={opts.dsNamed||[]} selected={filters.dsNamed} onChange={v=>setFilters({...filters,dsNamed:v})} />
+        <div className="yr"><input className="yi" placeholder="From" type="number" value={yearMin} onChange={e=>setYearMin(e.target.value)} /><span style={{color:'#ddd',fontSize:10}}>&ndash;</span><input className="yi" placeholder="To" type="number" value={yearMax} onChange={e=>setYearMax(e.target.value)} /></div>
+        {an>0&&<button className="clr" onClick={clear}>Clear all</button>}
+      </div>}
+
+      {view==='about' ? <div className="about-section">
+        <h2>About</h2>
+        <p>
+          The Entrepreneurship Research Knowledge Base is a comprehensive, searchable database of {papers.length.toLocaleString()} papers
+          published in the three leading entrepreneurship journals: <em>Entrepreneurship Theory and Practice</em> (ETP),
+          <em>Journal of Business Venturing</em> (JBV), and <em>Strategic Entrepreneurship Journal</em> (SEJ).
+        </p>
+        <p>
+          Each paper has been processed through a multi-stage AI-assisted pipeline that extracts structured information
+          (research questions, key findings, theories, methods, variables, geographic context) and standardizes it into
+          filterable, searchable categories. The database spans {Math.min(...papers.filter(p=>p.year).map(p=>p.year))}&ndash;{Math.max(...papers.filter(p=>p.year).map(p=>p.year))}.
+        </p>
+        <p>
+          This project was created by <strong>Wei Yu</strong>, Assistant Professor of Entrepreneurship at the
+          National University of Singapore (NUS). For more about Wei's research and teaching,
+          visit <a href="https://amychina12.github.io/weiyu/" target="_blank" rel="noopener noreferrer">amychina12.github.io/weiyu</a>.
+        </p>
+        <p style={{fontSize:'0.88em',color:'var(--muted)',marginTop:'1em'}}>
+          <strong>Disclaimer:</strong> This database was built using an AI-assisted extraction and standardization pipeline.
+          While every effort has been made to ensure accuracy, some papers may be missing, and extracted information
+          (e.g., theory classifications, method coding, variable identification) may contain errors.
+          Users are encouraged to verify critical details against the original publications.
+        </p>
+      </div> : view==='wiki' ? <WikiTab papers={papers} /> : view==='search' ? <>
+        <div className="rbar">
+          <div className="rinfo">
+            <strong>{filtered.length.toLocaleString()}</strong> {showBookmarks ? 'saved papers' : 'papers'}{query&&<> matching &ldquo;{query}&rdquo;</>}
+          </div>
+          <div className="rbar-right">
+            <button className="ai-btn" onClick={()=>{if(!aiSettings?.apiKey){setShowSettings(true);return;}setShowAI(!showAI);}} disabled={filtered.length===0} title={aiSettings?.apiKey ? 'Generate AI summary of filtered papers' : 'Set up API key first'}>
+              {sparkleIcon} {showAI ? 'Hide AI' : 'Summarize with AI'}
+            </button>
+            <div className="export-menu" ref={exportRef}>
+              <button className="export-btn" onClick={()=>setExportOpen(!exportOpen)}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </button>
+              {exportOpen && <div className="export-dd">
+                <button className="export-opt" onClick={()=>{exportCSV(filtered);setExportOpen(false);showToast(`Exported ${filtered.length} papers as CSV`);}}>
+                  Export as CSV<small>Title, authors, year, journal, RQ & findings</small>
+                </button>
+                <button className="export-opt" onClick={()=>{exportBibTeX(filtered);setExportOpen(false);showToast(`Exported ${filtered.length} papers as BibTeX`);}}>
+                  Export as BibTeX<small>Citation info for reference managers</small>
+                </button>
+                {isAdmin && <button className="export-opt" onClick={()=>{const pw=prompt('Re-enter admin password to export full data:');if(pw){verifyAdminPw(pw).then(ok=>{if(ok){exportExcel(filtered);setExportOpen(false);showToast(`Exported ${filtered.length} papers as Excel`);}else{showToast('Incorrect password');}});}else{setExportOpen(false);}}}>
+                  Export as Excel (Admin)<small>Full .xlsx with all fields (re-auth required)</small>
+                </button>}
+              </div>}
+            </div>
+            <select className="ssel" value={sortBy} onChange={e=>setSortBy(e.target.value)}>
+              <option value="relevance">Relevance</option>
+              <option value="year_desc">Newest first</option>
+              <option value="year_asc">Oldest first</option>
+              <option value="title">Title A&ndash;Z</option>
+              <option value="author">Author A&ndash;Z</option>
+              <option value="journal">Journal</option>
+            </select>
+          </div>
+        </div>
+
+        {showAI && <AISummaryPanel papers={filtered} query={query} onClose={()=>setShowAI(false)} />}
+
+        <div className="papers">
+          {pr.map((p,i)=>{const gi=page*perPage+i;return <Card key={p.id||`${page}-${i}`} p={p} q={query} hlTerms={hlTerms} open={expanded.has(gi)} toggle={()=>{setExpanded(prev=>{const next=new Set(prev);if(next.has(gi))next.delete(gi);else next.add(gi);return next;});setActiveIdx(i);}} bookmarked={bookmarks.includes(p.id)} onToggleBookmark={toggleBookmark} isActive={activeIdx===i} allPapers={papers} showRelevance={sortBy==='relevance'&&!!parsedQuery} maxScore={filtered.length>0?Math.max(...filtered.slice(0,1).map(p=>p._bm25||0)):0} />;})}
+          {filtered.length===0&&<div className="empty">{showBookmarks?'No papers saved yet \u2014 click the star on any paper to add it to your collection':'No papers match your search'}</div>}
+          {tp>1&&<div className="pgn">
+            <button className="pb" disabled={page===0} onClick={()=>{setPage(page-1);setExpanded(new Set())}}>&lsaquo;</button>
+            {Array.from({length:Math.min(tp,7)},(_,i)=>{let n;if(tp<=7)n=i;else if(page<3)n=i;else if(page>tp-4)n=tp-7+i;else n=page-3+i;return<button key={n} className={`pb ${page===n?'on':''}`} onClick={()=>{setPage(n);setExpanded(new Set())}}>{n+1}</button>})}
+            <button className="pb" disabled={page>=tp-1} onClick={()=>{setPage(page+1);setExpanded(new Set())}}>&rsaquo;</button>
+          </div>}
+        </div>
+      </> : <div className="analytics">
+        <div className="analytics-tabs">
+          <button className={`analytics-tab ${analyticsTab==='overview'?'on':''}`} onClick={()=>setAnalyticsTab('overview')}>Overview</button>
+          <button className={`analytics-tab ${analyticsTab==='explorer'?'on':''}`} onClick={()=>setAnalyticsTab('explorer')}>Research Explorer</button>
+          <button className={`analytics-tab ${analyticsTab==='comparison'?'on':''}`} onClick={()=>setAnalyticsTab('comparison')}>Journal Comparison</button>
+        </div>
+
+        {analyticsTab === 'overview' && <>
+          <div className="srow">
+            <div className="sc"><div className="sc-n">{filtered.length.toLocaleString()}</div><div className="sc-l">Papers</div></div>
+            <div className="sc"><div className="sc-n">{nTheories}</div><div className="sc-l">Theories identified</div></div>
+            <div className="sc"><div className="sc-n">{filtered.filter(p=>p.year).length>0?`${Math.min(...filtered.filter(p=>p.year).map(p=>p.year))}\u2013${Math.max(...filtered.filter(p=>p.year).map(p=>p.year))}`:'\u2013'}</div><div className="sc-l">Year range</div></div>
+          </div>
+          <div className="cg">
+            <div className="cb w"><div className="cl">Publications over time</div><div className="ca t"><canvas ref={cRefs.year}></canvas></div></div>
+            <div className="cb"><div className="cl">By journal</div><div className="ca"><canvas ref={cRefs.journal}></canvas></div></div>
+            <div className="cb"><div className="cl">Paper types</div><div className="ca"><canvas ref={cRefs.method}></canvas></div></div>
+            <div className="cb w"><div className="cl">Most-used theories</div><div className="ca t"><canvas ref={cRefs.theory}></canvas></div></div>
+            <div className="cb"><div className="cl">Topic domains</div><div className="ca"><canvas ref={cRefs.topic}></canvas></div></div>
+            <div className="cb"><div className="cl">Top countries</div><div className="ca"><canvas ref={cRefs.country}></canvas></div></div>
+          </div>
+        </>}
+
+        {analyticsTab === 'explorer' && <div className="explorer-container">
+          <div className="explorer-subtabs">
+            <button className={`explorer-subtab ${explorerTab==='heatmap'?'on':''}`} onClick={()=>setExplorerTab('heatmap')}>Theory &times; Topic Heatmap</button>
+            <button className={`explorer-subtab ${explorerTab==='methods'?'on':''}`} onClick={()=>setExplorerTab('methods')}>Method &times; Topic Heatmap</button>
+            <button className={`explorer-subtab ${explorerTab==='variables'?'on':''}`} onClick={()=>setExplorerTab('variables')}>Variable Relationships</button>
+          </div>
+          {explorerTab === 'heatmap' && <TheoryTopicHeatmap papers={filtered} allPapers={papers} />}
+          {explorerTab === 'methods' && <MethodTopicHeatmap papers={filtered} allPapers={papers} />}
+          {explorerTab === 'variables' && <VariableRelationshipMap papers={filtered} allPapers={papers} />}
+        </div>}
+
+        {analyticsTab === 'comparison' && <JournalComparison papers={filtered} darkMode={darkMode} />}
+      </div>}
+
+      {showHelp && <HelpGuide onClose={dismissHelp} />}
+      {showSettings && <SettingsModal settings={aiSettings} onClose={()=>setShowSettings(false)} onSave={s=>setAISettings(s)} />}
+      <Toast message={toast} />
+
+      <div className="shortcuts-help">
+        <span><kbd>/</kbd> Search</span>
+        <span><kbd>&#8593;</kbd><kbd>&#8595;</kbd> Navigate</span>
+        <span><kbd>Enter</kbd> Expand</span>
+        <span><kbd>S</kbd> Star</span>
+        <span><kbd>Esc</kbd> Close</span>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+<script>
+/* Basic deterrents — won't stop determined users but raises the bar */
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) { e.preventDefault(); }
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) { e.preventDefault(); }
+  if (e.key === 'F12') { e.preventDefault(); }
+});
+</script>
+</body>
+</html>
