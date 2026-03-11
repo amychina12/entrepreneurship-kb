@@ -807,6 +807,9 @@ function matchesPaper(parsed, text) {
     }
     /* Check original text first */
     if (t.includes(term)) return true;
+    /* Prefix matching: for terms ≥4 chars, match words that start with the term
+       (e.g., "Entr" matches "Entrepreneurship", "innov" matches "innovation") */
+    if (term.length >= 4 && new RegExp('\\b' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(t)) return true;
     /* Check with hyphens removed (e.g., "wellbeing" matches "well-being") */
     const termDehy = term.replace(/-/g, '');
     if (tDehy.replace(/\s/g,'').includes(termDehy) || tDehy.includes(termDehy)) return true;
@@ -816,8 +819,7 @@ function matchesPaper(parsed, text) {
     /* Check stem-based matching (e.g., "adversities" matches text with "adversity") */
     const stem = simpleStem(term);
     if (stem !== term && t.includes(stem)) return true;
-    /* Also check if stemmed versions of words in text match the query term */
-    /* Use regex to find words starting with the stem (covers plural/suffix variants) */
+    /* Stem prefix matching (covers plural/suffix variants) */
     if (stem.length >= 4 && new RegExp('\\b' + stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(t)) return true;
     return false;
   }
