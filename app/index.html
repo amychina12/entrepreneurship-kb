@@ -1527,7 +1527,7 @@ function WikiTab({ papers }) {
       <table className="wiki-table">
         <thead><tr><th>Value</th><th>Papers</th></tr></thead>
         <tbody>
-          {['Americas','Europe','Asia','Africa','Oceania'].map(val=>(
+          {['North America','Europe','Asia','South America','Africa','Oceania'].map(val=>(
             <tr key={val}><td><strong>{val}</strong></td><td>{countVal('continent',val).toLocaleString()}</td></tr>
           ))}
         </tbody>
@@ -1537,7 +1537,7 @@ function WikiTab({ papers }) {
       <table className="wiki-table">
         <thead><tr><th>Value</th><th>Papers</th></tr></thead>
         <tbody>
-          {(() => { const vals = {}; papers.forEach(p => { if (p.dsType) vals[p.dsType] = (vals[p.dsType]||0)+1; }); return Object.entries(vals).sort((a,b)=>b[1]-a[1]).map(([val,ct])=>(
+          {(() => { const vals = {}; papers.forEach(p => { if (p.dsType) p.dsType.split(';').forEach(t => { const k = t.trim(); if (k && k !== 'N/A') vals[k] = (vals[k]||0)+1; }); }); return Object.entries(vals).sort((a,b)=>b[1]-a[1]).map(([val,ct])=>(
             <tr key={val}><td><strong>{val}</strong></td><td>{ct.toLocaleString()}</td></tr>
           )); })()}
         </tbody>
