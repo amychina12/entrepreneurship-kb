@@ -2659,7 +2659,7 @@ function App() {
     return()=>{Object.values(cInst.current).forEach(c=>c?.destroy());};
   }, [view, analyticsTab, filtered, darkMode]);
 
-  const nTheories = useMemo(()=>{const s=new Set();papers.forEach(p=>{if(p.tName)p.tName.split(';').forEach(t=>{const k=t.trim();if(k)s.add(k);});});return s.size;},[papers]);
+  const nTheories = useMemo(()=>{const s=new Set();filtered.forEach(p=>{if(p.tName)p.tName.split(';').forEach(t=>{const k=t.trim();if(k&&k!=='N/A')s.add(k);});});return s.size;},[filtered]);
 
   if(loading) return <div className="loading"><div className="spinner"></div><p>Loading papers...</p></div>;
 
