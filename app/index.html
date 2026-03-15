@@ -1807,7 +1807,7 @@ function AISummaryPanel({ papers, query, onClose, summary, setSummary, chatMsgs,
   const sparkle = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l2.09 6.26L20.18 10l-6.09 1.74L12 18l-2.09-6.26L3.82 10l6.09-1.74z"/></svg>;
 
   return (
-    <div className="ai-overlay" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+    <div className="ai-overlay">
       <div className="ai-panel">
         <div className="ai-panel-header">
           <div className="ai-panel-title">{sparkle} AI Literature Summary <span className="ai-paper-count-badge">{papers.length} papers</span>{query && <span style={{marginLeft:8,fontWeight:400,color:'#1A8917'}}>on &ldquo;{query}&rdquo;</span>}</div>
