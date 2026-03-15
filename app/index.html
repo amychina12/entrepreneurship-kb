@@ -1714,16 +1714,13 @@ function SettingsModal({ onClose, settings, onSave }) {
 }
 
 /* ===== AI Summary Panel ===== */
-function AISummaryPanel({ papers, query, onClose }) {
-  const [summary, setSummary] = useState('');
+function AISummaryPanel({ papers, query, onClose, summary, setSummary, chatMsgs, setChatMsgs, aiError: error, setAIError: setError, baseMessagesRef }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [elapsed, setElapsed] = useState(0);
-  const [chatMsgs, setChatMsgs] = useState([]);
   const [chatInput, setChatInput] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef();
-  const baseMessages = useRef([]);
+  const baseMessages = baseMessagesRef;
   const hasRun = useRef(false);
   const timerRef = useRef(null);
 
@@ -1763,7 +1760,7 @@ function AISummaryPanel({ papers, query, onClose }) {
     setLoading(false);
   }, [papers, query]);
 
-  useEffect(() => { if (!hasRun.current) { hasRun.current = true; generateSummary(); } }, []);
+  useEffect(() => { if (!hasRun.current && !summary) { hasRun.current = true; generateSummary(); } }, []);
 
   useEffect(() => { chatEndRef.current?.scrollIntoView({behavior:'smooth'}); }, [chatMsgs]);
 
@@ -2494,6 +2491,10 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [aiSettings, setAISettings] = useState(loadAPISettings);
   const [showAI, setShowAI] = useState(false);
+  const [aiSummary, setAISummary] = useState('');
+  const [aiChatMsgs, setAIChatMsgs] = useState([]);
+  const [aiError, setAIError] = useState('');
+  const aiBaseMessages = useRef([]);
   const [isAdmin, setIsAdmin] = useState(IS_ADMIN_INIT);
   const [darkMode, setDarkMode] = useState(() => { try { return localStorage.getItem('kb_dark') === '1'; } catch(e) { return false; } });
   const [showHelp, setShowHelp] = useState(() => { try { return !localStorage.getItem('kb_help_seen'); } catch(e) { return true; } });
@@ -2883,7 +2884,11 @@ function App() {
           </div>
         </div>
 
-        {showAI && <AISummaryPanel papers={filtered} query={query} onClose={()=>setShowAI(false)} />}
+        {showAI && <AISummaryPanel papers={filtered} query={query} onClose={()=>setShowAI(false)}
+          summary={aiSummary} setSummary={setAISummary}
+          chatMsgs={aiChatMsgs} setChatMsgs={setAIChatMsgs}
+          aiError={aiError} setAIError={setAIError}
+          baseMessagesRef={aiBaseMessages} />}
 
         <div className="papers">
           {pr.map((p,i)=>{const gi=page*perPage+i;return <Card key={p.id||`${page}-${i}`} p={p} q={query} hlTerms={hlTerms} open={expanded.has(gi)} toggle={()=>{setExpanded(prev=>{const next=new Set(prev);if(next.has(gi))next.delete(gi);else next.add(gi);return next;});setActiveIdx(i);}} bookmarked={bookmarks.includes(p.id)} onToggleBookmark={toggleBookmark} isActive={activeIdx===i} allPapers={papers} showRelevance={sortBy==='relevance'&&!!parsedQuery} maxScore={filtered.length>0?Math.max(...filtered.slice(0,1).map(p=>p._bm25||0)):0} />;})}
